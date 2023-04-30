@@ -2,11 +2,20 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@quidone/react-native-calendars": ["./src/index"]
+      "@quidone/react-native-calendars": ["./src/index"],
+      "@calendars/common": ["./src/calendars/common/index"],
+      "@calendars/month": ["./src/calendars/month/index"],
+      "@calendars/week": ["./src/calendars/week/index"],
+      "@utils/string": ["./src/utils/string/index"],
+      "@utils/array": ["./src/utils/array/index"],
+      "@utils/react-hooks": ["./src/utils/react-hooks/index"],
+      "@utils/react-native-reanimated": ["./src/utils/react-native-reanimated/index"],
+      "@utils/day": ["./src/utils/day/index"],
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
