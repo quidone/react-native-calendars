@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
-import {getPageIndexNumber} from '../utils';
+import {getPageIndexNumber} from '../utils/page-index';
 import {useWeekPageIndexes, useWeekPageIndexState} from './WeekPagesProvider';
 
 const useWeekArrayIndex = () => {

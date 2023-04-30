@@ -1,3 +1,4 @@
+import {WEEK_LENGTH} from '@utils/day';
 import type dayjs from 'dayjs';
 
 export const getYearAndMonthByWeekPageIndex = (
@@ -18,7 +19,6 @@ export const getYearAndMonthByWeekPageIndex = (
   return {year: startWeekDay.year(), month: startWeekDay.month()};
 };
 
-export const WEEK_LENGTH = 7;
 export const getSortedWeekDayNames = (
   weekDays: string[],
   weekStart: number,

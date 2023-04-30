@@ -1,8 +1,6 @@
 import type dayjs from 'dayjs';
 import type {WeekPageIndex} from '@calendars/common';
 
-export const WEEK_LENGTH = 7;
-
 export const getPageIndexNumber = (
   indexes: ReadonlyArray<WeekPageIndex>,
   {year, dayOfYear}: WeekPageIndex,

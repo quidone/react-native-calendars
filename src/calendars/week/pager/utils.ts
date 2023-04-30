@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
 import type {WeekPageIndex, LDayjs} from '@calendars/common';
 import memoizeOne from 'memoize-one';
-import {WEEK_LENGTH} from '../utils';
-import {fDay, setNoon} from '@utils/day';
+import {fDay, setNoon, WEEK_LENGTH} from '@utils/day';
 
 const normalizePageStart = (day: dayjs.Dayjs) => {
   return setNoon(day.startOf('week').utc(true));

@@ -26,7 +26,7 @@ export {useLocaledDayjs, LDayjs} from './providers/LocaleProvider';
 export {useDayState} from './providers/DayProvider';
 export {CalendarMethods} from './providers/MethodsProvider';
 export {useCalendarWidth} from './providers/CalendarWidthProvider';
-export {useTheme} from './providers/ThemeProvider';
+export {useTheme, CalendarTheme} from './providers/ThemeProvider';
 export {
   useRenderedPageData,
   useRenderedPageRegisterEffect,
@@ -38,4 +38,4 @@ export {
   MonthPageIndex,
   GetPageHeight,
 } from './types';
-export {getDefaultPageHeight, getMonthRowCount} from './utils';
+export {getDefaultPageHeight, getMonthRowCount} from './page/utils';

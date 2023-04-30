@@ -1,4 +1,5 @@
 import type dayjs from 'dayjs';
+import type {GetPageHeight} from '../types';
 
 export const FIRST_DAY_OF_WEEK_INDEX = 0;
 export const LAST_DAY_OF_WEEK_INDEX = 6;
@@ -23,4 +24,20 @@ export const createDaysOfWeek = (start: dayjs.Dayjs): DaysOfWeek => {
     start.add(5, 'd'),
     start.add(6, 'd'),
   ];
+};
+
+export const getDefaultPageHeight: GetPageHeight = ({theme, rowCount}) => {
+  return (
+    theme.pagePaddingTop +
+    theme.pagePaddingBottom +
+    rowCount * theme.dayContainerSize +
+    (rowCount - 1) * theme.pageBetweenRows
+  );
+};
+
+export const getMonthRowCount = (day: dayjs.Dayjs) => {
+  const weekCount = day
+    .endOf('month')
+    .diff(day.startOf('month').startOf('week'), 'week', true);
+  return Math.ceil(weekCount);
 };

@@ -1,5 +1,7 @@
 import type dayjs from 'dayjs';
 
+export const WEEK_LENGTH = 7;
+
 type FourNums = `${number}${number}${number}${number}`;
 type TwoNums = `${number}${number}`;
 

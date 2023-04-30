@@ -17,7 +17,7 @@ import {
   SyncIndexConfig,
   FlatListPager,
 } from '@calendars/common';
-import {getPageIndexNumber, getWeekPageIndexByDay} from '../utils';
+import {getPageIndexNumber, getWeekPageIndexByDay} from '../utils/page-index';
 import Animated, {
   SharedValue,
   useAnimatedRef,
