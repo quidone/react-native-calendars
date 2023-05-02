@@ -80,11 +80,9 @@ const DayView = ({
               isSecondary ? base.daySecondaryContainerStyle : undefined,
               dayContainerStyle,
               dayContainerPropStyle,
-            ]}
-          >
+            ]}>
             <Animated.Text
-              style={[base.dayTitleStyle, textColorStyle, dayTextPropStyle]}
-            >
+              style={[base.dayTitleStyle, textColorStyle, dayTextPropStyle]}>
               {day}
             </Animated.Text>
             {dots !== null && (

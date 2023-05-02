@@ -9,17 +9,10 @@ type DotProps = {
 
 const Dot = memo(({isDaySelected, color, selectedColor}: DotProps) => {
   const {base, prop} = useStyles();
+  const backgroundColor = isDaySelected ? selectedColor ?? color : color;
 
   return (
-    <View
-      style={[
-        base.dayDotStyle,
-        prop.dayDotStyle,
-        {
-          backgroundColor: isDaySelected ? selectedColor ?? color : color,
-        },
-      ]}
-    />
+    <View style={[base.dayDotStyle, prop.dayDotStyle, {backgroundColor}]} />
   );
 });
 
