@@ -1,6 +1,6 @@
 {
   "name": "@quidone/react-native-calendars",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "test",
   "main": "dist/commonjs/index",
   "module": "dist/module/index",
@@ -30,7 +30,6 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepack": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install"
@@ -52,7 +51,8 @@
   },
   "dependencies": {
     "@rozhkov/react-useful-hooks": "^1.0.8",
-    "debounce": "^1.2.1"
+    "debounce": "^1.2.1",
+    "memoize-one": "^6.0.0"
   },
   "peerDependencies": {
     "dayjs": "^1.10.0",
