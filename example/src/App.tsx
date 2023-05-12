@@ -1,31 +1,32 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from '@quidone/react-native-calendars';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+} from 'react-native';
+import MonthCalendarExample from './calendars/MonthCalendarExample';
+import WeekCalendarExample from './calendars/WeekCalendarExample';
+import WMCalendarExample from './calendars/WMCalendarExample';
+import Box from './utils/Box';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const {width} = useWindowDimensions();
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.contentContainerStyle}>
+        <WeekCalendarExample width={width} />
+        <Box height={80} />
+        <MonthCalendarExample width={width} />
+        <Box height={80} />
+        <WMCalendarExample width={width} />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
+  contentContainerStyle: {paddingVertical: 20},
 });
