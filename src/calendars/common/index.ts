@@ -26,14 +26,28 @@ export {
   default as baseProviders,
   BaseCalendarProps,
 } from './providers/baseProviders';
-export {useLocaledDayjs, LDayjs} from './providers/LocaleProvider';
+export {useLocaledDayjs, LDayjs, Locale} from './providers/LocaleProvider';
 export {useDayState} from './providers/DayProvider';
 export {CalendarMethods} from './providers/MethodsProvider';
 export {useCalendarWidth} from './providers/CalendarWidthProvider';
 export {useTheme, CalendarTheme} from './providers/ThemeProvider';
+import type {CalendarTheme} from './providers/ThemeProvider';
+export type PartialCalendarTheme = Partial<CalendarTheme>;
+export type {
+  MarkedDays,
+  MarkedDaysSelector,
+  MarkedDaysList,
+  MarkedDayData,
+  DotData,
+} from './providers/MarkedDaysProvider';
+export type {
+  RenderDay,
+  RenderMonthTitleHeader,
+} from './providers/CustomRendersProvider';
 export {
   useRenderedPageData,
   useRenderedPageRegisterEffect,
+  PageData,
 } from './providers/RenderedPagesProvider';
 
 export {

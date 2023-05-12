@@ -16,13 +16,13 @@ import StylesProvider, {CalendarStyles} from './StylesProvider';
 import ThemeProvider, {CalendarTheme} from './ThemeProvider';
 import TodayProvider from './TodayProvider';
 import DayProvider, {OnChangeDay} from './DayProvider';
-import type {Day, FDay} from '@utils/day';
+import type {Day} from '@utils/day';
 
 export type BaseCalendarProps = {
   locale?: Locale;
   theme?: Partial<CalendarTheme>;
 
-  selectedDay?: FDay | string | null;
+  selectedDay?: Day | null;
   onChangeDay?: OnChangeDay;
   dayMin?: Day;
   dayMax?: Day;
