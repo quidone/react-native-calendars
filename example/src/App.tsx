@@ -9,7 +9,8 @@ import {
 import MonthCalendarExample from './calendars/MonthCalendarExample';
 import WeekCalendarExample from './calendars/WeekCalendarExample';
 import WMCalendarExample from './calendars/WMCalendarExample';
-import Box from './utils/Box';
+import Box from './helpers/Box';
+import Section from './helpers/Section';
 
 export default function App() {
   const {width} = useWindowDimensions();
@@ -17,11 +18,17 @@ export default function App() {
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.contentContainerStyle}>
-        <WeekCalendarExample width={width} />
-        <Box height={80} />
-        <MonthCalendarExample width={width} />
-        <Box height={80} />
-        <WMCalendarExample width={width} />
+        <Section title={'Week Calendar'}>
+          <WeekCalendarExample width={width} />
+        </Section>
+        <Box height={60} />
+        <Section title={'Month Calendar'}>
+          <MonthCalendarExample width={width} />
+        </Section>
+        <Box height={60} />
+        <Section title={'Week-Month Calendar'}>
+          <WMCalendarExample width={width} />
+        </Section>
       </ScrollView>
     </SafeAreaView>
   );
