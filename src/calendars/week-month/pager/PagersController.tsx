@@ -1,6 +1,7 @@
 import React, {
   ForwardedRef,
   forwardRef,
+  memo,
   ReactNode,
   RefObject,
   useCallback,
@@ -48,38 +49,41 @@ const defaultProgressAnimConfig: AnimConfig = {
   },
 };
 
+export type RenderMonthPager = (
+  props: {
+    ref: RefObject<CalendarMethods>;
+  } & Pick<
+    MonthPagerProps,
+    | 'style'
+    | 'pointerEvents'
+    | 'onHeightChanged'
+    | 'syncIndexIfChanged'
+    | 'translateY'
+    | 'opacity'
+  >,
+) => ReactNode;
+export type RenderWeekPager = (
+  props: {
+    ref: RefObject<CalendarMethods>;
+  } & Pick<
+    WeekPagerProps,
+    | 'style'
+    | 'pointerEvents'
+    | 'onHeightChanged'
+    | 'syncIndexIfChanged'
+    | 'translateY'
+    | 'opacity'
+  >,
+) => ReactNode;
+
 type PagesControllerProps = {
   type: CalendarType;
   onChangedType: (type: CalendarType) => void;
   switchingAnimConfig: AnimConfig | undefined;
   enableSwitchingByGesture: boolean | undefined;
   getMonthPagerOffsetY: GetMonthPagerOffsetY | undefined;
-  renderMonthPager: (
-    props: {
-      ref: RefObject<CalendarMethods>;
-    } & Pick<
-      MonthPagerProps,
-      | 'style'
-      | 'pointerEvents'
-      | 'onHeightChanged'
-      | 'syncIndexIfChanged'
-      | 'translateY'
-      | 'opacity'
-    >,
-  ) => ReactNode;
-  renderWeekPager: (
-    props: {
-      ref: RefObject<CalendarMethods>;
-    } & Pick<
-      WeekPagerProps,
-      | 'style'
-      | 'pointerEvents'
-      | 'onHeightChanged'
-      | 'syncIndexIfChanged'
-      | 'translateY'
-      | 'opacity'
-    >,
-  ) => ReactNode;
+  renderMonthPager: RenderMonthPager;
+  renderWeekPager: renderWeekPager;
 };
 
 const PagersController = (
@@ -268,4 +272,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default forwardRef(PagersController);
+export default memo(forwardRef(PagersController));

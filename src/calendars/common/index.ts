@@ -8,7 +8,11 @@ export {
   OnMonthInitialized,
 } from './header/useMonthEventsEffect';
 
-export {default as FlatListPager, SyncIndexConfig} from './pager/FlatListPager';
+export {
+  default as FlatListPager,
+  SyncIndexConfig,
+  RenderPage,
+} from './pager/FlatListPager';
 export {default as useAnimatedPagerHeight} from './pager/useAnimatedPagerHeight';
 export {default as PageView} from './page/Page.View';
 export {

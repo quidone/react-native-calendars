@@ -1,6 +1,7 @@
 import React, {
   ForwardedRef,
   forwardRef,
+  memo,
   useCallback,
   useEffect,
   useMemo,
@@ -40,13 +41,16 @@ const defaultSyncIndexConfig: SyncIndexConfig = {
 };
 
 export type FlatListPagerMethods = Pick<FlatList, 'scrollToIndex'>;
+export type RenderPage<ItemT> = (
+  info: ListRenderItemInfo<ItemT>,
+) => React.ReactElement | null;
 
 export type FlatListPagerProps<ItemT = any> = {
   data: ReadonlyArray<ItemT>;
   index: number;
   syncIndexIfChanged?: Partial<SyncIndexConfig>;
   keyExtractor: (item: ItemT, index: number) => string;
-  renderPage: (info: ListRenderItemInfo<ItemT>) => React.ReactElement | null;
+  renderPage: RenderPage<ItemT>;
   onChangeIndex?: (index: number) => void;
   indexProgressSv?: SharedValue<number>;
   pageLength: number;
@@ -212,4 +216,4 @@ const FlatListPager = <ItemT,>(
   );
 };
 
-export default forwardRef(FlatListPager) as typeof FlatListPager;
+export default memo(forwardRef(FlatListPager)) as typeof FlatListPager;

@@ -1,7 +1,7 @@
 import React, {
   ForwardedRef,
   forwardRef,
-  memo,
+  useCallback,
   useImperativeHandle,
 } from 'react';
 import MonthPageView from './MonthPage';
@@ -23,13 +23,14 @@ import {
   FlatListPager,
   GetPageHeight,
   MonthPageIndex,
+  RenderPage,
   SyncIndexConfig,
   useAnimatedPagerHeight,
   useCalendarWidth,
   useLocaledDayjs,
   useRenderedPageData,
 } from '@calendars/common';
-import {useStableCallback} from '@rozhkov/react-useful-hooks';
+import {useMemoArray, useStableCallback} from '@rozhkov/react-useful-hooks';
 import {useAnimatedListener} from '@utils/react-native-reanimated';
 
 export type MonthPagerProps = {
@@ -96,12 +97,24 @@ const MonthPager = (
     },
   }));
 
+  const styleResult = useMemoArray([styleProp, style]);
+  const renderPage = useCallback<RenderPage<MonthPageIndex>>(
+    ({item, index}) => (
+      <MonthPageView
+        pageIndex={item}
+        arrayIndex={index}
+        pageHeight={pageHeight}
+      />
+    ),
+    [pageHeight],
+  );
+
   return (
     <FlatListPager<MonthPageIndex>
       // @ts-ignore
       ref={pagerRef}
       data={indexes}
-      style={[styleProp, style]}
+      style={styleResult}
       index={curIndex}
       indexProgressSv={indexProgressSv}
       onChangeIndex={changeIndex}
@@ -109,15 +122,9 @@ const MonthPager = (
       horizontal={true}
       pageLength={calendarWidth}
       pointerEvents={pointerEvents}
-      renderPage={({item, index}) => (
-        <MonthPageView
-          pageIndex={item}
-          arrayIndex={index}
-          pageHeight={pageHeight}
-        />
-      )}
+      renderPage={renderPage}
     />
   );
 };
 
-export default memo(forwardRef(MonthPager));
+export default forwardRef(MonthPager);

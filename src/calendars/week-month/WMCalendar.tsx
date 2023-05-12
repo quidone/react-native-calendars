@@ -1,4 +1,10 @@
-import React, {ForwardedRef, forwardRef, RefAttributes, useMemo} from 'react';
+import React, {
+  ForwardedRef,
+  forwardRef,
+  RefAttributes,
+  useCallback,
+  useMemo,
+} from 'react';
 import {
   getMonthPageIndexOrDefault,
   getSyncedMonthPageIndex,
@@ -9,7 +15,10 @@ import useCalendarTypeState, {
   OnTypeChanged,
 } from './hooks/useCalendarTypeState';
 import Header from './header/Header';
-import PagersController from './pager/PagersController';
+import PagersController, {
+  RenderMonthPager,
+  RenderWeekPager,
+} from './pager/PagersController';
 import type {GetMonthPagerOffsetY} from './hooks/useMonthPagerOffsetY';
 import type {CalendarType} from './types';
 import type {AnimConfig} from '@utils/react-native-reanimated';
@@ -166,6 +175,15 @@ const WMCalendarCore = (
     return {weekPageHeight: pageHeight, monthPageHeight: pageHeight};
   }, [pageHeight]);
 
+  const renderWeekPager = useCallback<RenderWeekPager>(
+    (props) => <WeekPager pageHeight={weekPageHeight} {...props} />,
+    [weekPageHeight],
+  );
+  const renderMonthPager = useCallback<RenderMonthPager>(
+    (props) => <MonthPager pageHeight={monthPageHeight} {...props} />,
+    [monthPageHeight],
+  );
+
   return (
     <WeekPagesProvider
       pageStart={weekPageStart}
@@ -192,12 +210,8 @@ const WMCalendarCore = (
             switchingAnimConfig={switchingAnimConfig}
             enableSwitchingByGesture={enableSwitchingByGesture}
             getMonthPagerOffsetY={getMonthPagerOffsetY}
-            renderWeekPager={(props) => (
-              <WeekPager pageHeight={weekPageHeight} {...props} />
-            )}
-            renderMonthPager={(props) => (
-              <MonthPager pageHeight={monthPageHeight} {...props} />
-            )}
+            renderWeekPager={renderWeekPager}
+            renderMonthPager={renderMonthPager}
           />
         </CalendarContainer>
       </MonthPagesProvider>

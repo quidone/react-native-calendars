@@ -1,7 +1,7 @@
 import React, {
   ForwardedRef,
   forwardRef,
-  memo,
+  useCallback,
   useImperativeHandle,
 } from 'react';
 import useWeekArrayIndex from './usePageIndexNumber';
@@ -16,6 +16,7 @@ import {
   useAnimatedPagerHeight,
   SyncIndexConfig,
   FlatListPager,
+  RenderPage,
 } from '@calendars/common';
 import {getPageIndexNumber, getWeekPageIndexByDay} from '../utils/page-index';
 import Animated, {
@@ -29,7 +30,7 @@ import {
   useWeekPageIndexProgress,
   useWeekPageIndexState,
 } from './WeekPagesProvider';
-import {useStableCallback} from '@rozhkov/react-useful-hooks';
+import {useMemoArray, useStableCallback} from '@rozhkov/react-useful-hooks';
 import {useAnimatedListener} from '@utils/react-native-reanimated';
 
 export type WeekPagerProps = {
@@ -95,11 +96,23 @@ const WeekPager = (
     },
   }));
 
+  const styleResult = useMemoArray([styleProp, style]);
+  const renderPage = useCallback<RenderPage<WeekPageIndex>>(
+    ({item, index}) => (
+      <WeekPageView
+        pageIndex={item}
+        arrayIndex={index}
+        pageHeight={pageHeight}
+      />
+    ),
+    [pageHeight],
+  );
+
   return (
     <FlatListPager<WeekPageIndex>
       // @ts-ignore
       ref={pagerRef}
-      style={[styleProp, style]}
+      style={styleResult}
       data={indexes}
       index={curIndex}
       onChangeIndex={changeIndex}
@@ -107,15 +120,9 @@ const WeekPager = (
       horizontal={true}
       pageLength={calendarWidth}
       pointerEvents={pointerEvents}
-      renderPage={({item, index}) => (
-        <WeekPageView
-          pageIndex={item}
-          arrayIndex={index}
-          pageHeight={pageHeight}
-        />
-      )}
+      renderPage={renderPage}
     />
   );
 };
 
-export default memo(forwardRef(WeekPager));
+export default forwardRef(WeekPager);
