@@ -330,7 +330,7 @@ export default StylesProvider;
 export const useStyles = () => {
   const value = useContext(StylesContext);
   if (value == null) {
-    throw new Error('usePropStyles must be called from within StylesProvider!');
+    throw new Error('useStyles must be called from within StylesProvider!');
   }
   return value;
 };

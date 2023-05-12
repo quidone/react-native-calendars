@@ -44,6 +44,7 @@ export type {
   RenderDay,
   RenderMonthTitleHeader,
 } from './providers/CustomRendersProvider';
+
 export {
   useRenderedPageData,
   useRenderedPageRegisterEffect,
