@@ -23,9 +23,7 @@ type LocaleProviderProps = PropsWithChildren<{
   locale: Locale | undefined;
 }>;
 
-const LocaleProvider = (props: LocaleProviderProps) => {
-  const {locale, children} = props;
-
+const LocaleProvider = ({locale, children}: LocaleProviderProps) => {
   const localedDayjs = useMemo<(config?: ConfigType) => dayjs.Dayjs>(() => {
     return locale !== undefined
       ? (config?: ConfigType) => dayjs(config).locale(locale)

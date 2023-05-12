@@ -1,3 +1,5 @@
+import './dayjs-extensions';
+
 export {default as CalendarContainer} from './Calendar.Container';
 export {default as HeaderMonthRow} from './header/Header.MonthRow';
 export {default as HeaderWeekDaysRow} from './header/Header.WeekDaysRow';

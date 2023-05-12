@@ -1,5 +1,3 @@
-import './dayjs-extensions';
-
 export type {Day, FDay} from '@utils/day';
 export type {
   Locale,
