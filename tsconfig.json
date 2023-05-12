@@ -6,6 +6,7 @@
       "@calendars/common": ["./src/calendars/common/index"],
       "@calendars/month": ["./src/calendars/month/index"],
       "@calendars/week": ["./src/calendars/week/index"],
+      "@calendars/week-month": ["./src/calendars/week-month/index"],
       "@utils/string": ["./src/utils/string/index"],
       "@utils/array": ["./src/utils/array/index"],
       "@utils/react-hooks": ["./src/utils/react-hooks/index"],

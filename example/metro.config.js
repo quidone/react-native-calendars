@@ -1,8 +1,9 @@
 const path = require('path');
 const escape = require('escape-string-regexp');
-const { getDefaultConfig } = require('@expo/metro-config');
+const {getDefaultConfig} = require('@expo/metro-config');
 const exclusionList = require('metro-config/src/defaults/exclusionList');
 const pak = require('../package.json');
+const localPkgs = require('../local-namespace-config');
 
 const root = path.resolve(__dirname, '..');
 
@@ -26,12 +27,15 @@ module.exports = {
     blacklistRE: exclusionList(
       modules.map(
         (m) =>
-          new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`)
-      )
+          new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`),
+      ),
     ),
 
     extraNodeModules: modules.reduce((acc, name) => {
       acc[name] = path.join(__dirname, 'node_modules', name);
+      Object.entries(localPkgs).forEach(([nm, ph]) => {
+        acc[nm] = path.join(root, ph);
+      });
       return acc;
     }, {}),
   },
