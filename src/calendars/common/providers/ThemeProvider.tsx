@@ -63,7 +63,7 @@ const defaultTheme: CalendarTheme = {
   dayFontSize: 17,
   dayTodayBorderColor: PRIMARY_COLOR,
   dayTodayBorderWidth: 2.5,
-  dayBgColor: {value: 'transparent', type: 'timing', option: {duration: 50}}, // TODO remove transparent - некорректно работает, иногда остается остаточный цвет.
+  dayBgColor: {value: 'transparent', type: 'timing', option: {duration: 50}},
   daySelectedBgColor: {
     value: PRIMARY_COLOR,
     type: 'timing',
