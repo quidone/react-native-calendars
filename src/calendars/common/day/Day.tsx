@@ -11,6 +11,8 @@ import {
   useIsSelectedDay,
 } from '../providers/DayProvider';
 import {useStableCallback} from '@rozhkov/react-useful-hooks';
+import DotsContext from '../dot/DotsContext';
+import {EMPTY_ARRAY} from 'default-values';
 
 type DayProps = {
   day: dayjs.Dayjs;
@@ -26,38 +28,44 @@ const Day = ({day, isSecondary = false}: DayProps) => {
   const markedData = useMarkedData(day);
   const onPress = useStableCallback(() => changeDay(day));
 
-  if (renderDay != null) {
-    const customDay = renderDay({
-      day,
-      onPress,
-      isSecondary,
-      isDisabled,
-      isSelected,
-      isToday,
-    });
+  const renderContent = () => {
+    if (renderDay != null) {
+      const customDay = renderDay({
+        day,
+        onPress,
+        isSecondary,
+        isDisabled,
+        isSelected,
+        isToday,
+      });
 
-    return isValidElement(customDay) ? (
-      customDay
-    ) : (
-      <DayViewEmpty
+      return isValidElement(customDay) ? (
+        customDay
+      ) : (
+        <DayViewEmpty
+          isSelected={isSelected}
+          isDisabled={isDisabled}
+          isToday={isToday}
+          isSecondary={isSecondary}
+        />
+      );
+    }
+    return (
+      <DayView
+        day={day.date()}
         isSelected={isSelected}
         isDisabled={isDisabled}
         isToday={isToday}
         isSecondary={isSecondary}
+        onPress={onPress}
       />
     );
-  }
+  };
 
   return (
-    <DayView
-      day={day.date()}
-      dots={markedData?.dots ?? null}
-      isSelected={isSelected}
-      isDisabled={isDisabled}
-      isToday={isToday}
-      isSecondary={isSecondary}
-      onPress={onPress}
-    />
+    <DotsContext.Provider value={markedData?.dots ?? EMPTY_ARRAY}>
+      {renderContent()}
+    </DotsContext.Provider>
   );
 };
 

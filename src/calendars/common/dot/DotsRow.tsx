@@ -2,6 +2,7 @@ import React, {memo} from 'react';
 import type {DotData} from '../providers/MarkedDaysProvider';
 import {View} from 'react-native';
 import {useStyles} from '../providers/StylesProvider';
+import {useDots} from './DotsContext';
 
 type DotProps = {
   isDaySelected: boolean;
@@ -18,11 +19,11 @@ const Dot = memo(({isDaySelected, color, selectedColor}: DotProps) => {
 
 type DotRowProps = {
   isDaySelected: boolean;
-  dots: ReadonlyArray<DotData>;
 };
 
-const DotsRow = ({isDaySelected, dots}: DotRowProps) => {
+const DotsRow = ({isDaySelected}: DotRowProps) => {
   const {base, prop} = useStyles();
+  const dots = useDots();
 
   if (dots.length === 0) {
     return null;
