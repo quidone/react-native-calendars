@@ -46,6 +46,7 @@ export type {
   RenderDay,
   RenderMonthTitleHeader,
 } from './providers/CustomRendersProvider';
+export {useDots} from './dot/DotsContext';
 
 export {
   useRenderedPageData,

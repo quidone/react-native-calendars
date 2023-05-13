@@ -22,7 +22,7 @@ export type {
   MarkedDayData,
   DotData,
 } from '@calendars/common';
-export {useTheme} from '@calendars/common';
+export {useTheme, useDots} from '@calendars/common';
 
 export type {WeekCalendarProps} from '@calendars/week';
 export {default as WeekCalendar} from '@calendars/week';
