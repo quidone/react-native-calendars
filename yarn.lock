@@ -2639,6 +2639,7 @@ __metadata:
     commitlint: ^17.0.2
     dayjs: ^1.11.7
     debounce: ^1.2.1
+    default-values: ^1.0.2
     del-cli: ^5.0.0
     eslint: ^8.4.1
     eslint-config-prettier: ^8.5.0
@@ -5339,6 +5340,13 @@ __metadata:
   version: 1.0.1
   resolution: "default-values@npm:1.0.1"
   checksum: 6a8c16fc63ca715239371a2cdd2e5e6462c9ca01e47008cbb2270dc2b98bab0e69e363620f9e5bf61e715535970dc258fa7a4939902adc12b77451094f991add
+  languageName: node
+  linkType: hard
+
+"default-values@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "default-values@npm:1.0.2"
+  checksum: 3f5216909dd5e8e7560d2c78921df3855254105e604644ebd8ced56b1d2f852475b74ffb2ee2870706f26392b2576730308c506b780db362ad6555f278df1040
   languageName: node
   linkType: hard
 

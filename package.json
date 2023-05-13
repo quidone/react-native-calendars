@@ -52,6 +52,7 @@
   "dependencies": {
     "@rozhkov/react-useful-hooks": "^1.0.8",
     "debounce": "^1.2.1",
+    "default-values": "^1.0.2",
     "memoize-one": "^6.0.0"
   },
   "peerDependencies": {
