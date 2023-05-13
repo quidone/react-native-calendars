@@ -5,7 +5,6 @@ import React, {
   useMemo,
 } from 'react';
 import dayjs, {ConfigType} from 'dayjs';
-import {useMemoObject} from '@rozhkov/react-useful-hooks';
 
 type DayjsLocale = string | ILocale;
 export type Locale = DayjsLocale;
@@ -29,13 +28,15 @@ const LocaleProvider = ({locale, children}: LocaleProviderProps) => {
       ? (config?: ConfigType) => dayjs(config).locale(locale)
       : dayjs;
   }, [locale]);
-  const localeData = localedDayjs().localeData();
-  const result = useMemoObject<LocaleContextValue>({
-    localedDayjs,
-    months: localeData.months(),
-    weekDays: localeData.weekdaysMin(),
-    weekStart: localeData.firstDayOfWeek(),
-  });
+  const result = useMemo<LocaleContextValue>(() => {
+    const localeData = localedDayjs().localeData();
+    return {
+      localedDayjs,
+      months: localeData.months(),
+      weekDays: localeData.weekdaysMin(),
+      weekStart: localeData.firstDayOfWeek(),
+    };
+  }, [localedDayjs]);
 
   return <LocaleContext.Provider value={result} children={children} />;
 };
