@@ -1,22 +1,9 @@
 import React, {memo, ReactNode} from 'react';
-import {
-  Platform,
-  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
-} from 'react-native';
-import {TouchableWithoutFeedback as GHTouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {TouchableWithoutFeedback} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {useStyles} from '../providers/StylesProvider';
 import LazyAnimatedStylesController from './LazyAnimatedStylesController';
 import DotsRow from '../dot/DotsRow';
-
-const TouchableWithoutFeedback = Platform.select({
-  // Days are not selected if we use RNTouchableWithoutFeedback on android
-  // @ts-ignore
-  android: GHTouchableWithoutFeedback as RNTouchableWithoutFeedback,
-  // Days are not selected if we use GHTouchableWithoutFeedback on ios
-  ios: RNTouchableWithoutFeedback,
-  default: RNTouchableWithoutFeedback,
-});
 
 export type DayViewProps = {
   isSelected?: boolean;
