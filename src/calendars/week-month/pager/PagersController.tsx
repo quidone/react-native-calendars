@@ -261,15 +261,9 @@ const PagersController = (
 };
 
 const styles = StyleSheet.create({
-  root: {
-    overflow: 'hidden',
-  },
-  absolute: {
-    position: 'absolute',
-  },
-  opacity0: {
-    opacity: 0,
-  },
+  root: {overflow: 'hidden'},
+  absolute: {position: 'absolute'},
+  opacity0: {opacity: 0},
 });
 
 export default memo(forwardRef(PagersController));
