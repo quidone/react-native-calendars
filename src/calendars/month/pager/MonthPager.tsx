@@ -46,6 +46,7 @@ export type MonthPagerProps = {
   syncIndexIfChanged?: Partial<SyncIndexConfig>;
   translateY?: SharedValue<number>;
   opacity?: SharedValue<number>;
+  windowSize?: number;
 };
 
 const MonthPager = (
@@ -57,6 +58,7 @@ const MonthPager = (
     syncIndexIfChanged,
     translateY,
     opacity,
+    windowSize,
   }: MonthPagerProps,
   forwardedRef: ForwardedRef<CalendarMethods>,
 ) => {
@@ -129,6 +131,7 @@ const MonthPager = (
       pageLength={calendarWidth}
       pointerEvents={pointerEvents}
       renderPage={renderPage}
+      windowSize={windowSize}
     />
   );
 };

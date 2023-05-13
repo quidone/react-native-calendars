@@ -44,6 +44,7 @@ export type WeekPagerProps = {
   syncIndexIfChanged?: Partial<SyncIndexConfig>;
   translateY?: SharedValue<number>;
   opacity?: SharedValue<number>;
+  windowSize?: number;
 };
 
 const WeekPager = (
@@ -55,6 +56,7 @@ const WeekPager = (
     syncIndexIfChanged,
     translateY,
     opacity,
+    windowSize,
   }: WeekPagerProps,
   forwardedRef: ForwardedRef<CalendarMethods>,
 ) => {
@@ -125,6 +127,7 @@ const WeekPager = (
       pageLength={calendarWidth}
       pointerEvents={pointerEvents}
       renderPage={renderPage}
+      windowSize={windowSize}
     />
   );
 };

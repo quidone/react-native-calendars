@@ -57,6 +57,7 @@ export type FlatListPagerProps<ItemT = any> = {
   horizontal?: boolean;
   style?: StyleProp<Animated.AnimateStyle<StyleProp<ViewStyle>>>;
   contentContainerStyle?: StyleProp<ViewStyle>;
+  windowSize?: number;
 } & Pick<FlatListProps<ItemT>, 'pointerEvents'>;
 
 const FlatListPager = <ItemT,>(
@@ -73,6 +74,7 @@ const FlatListPager = <ItemT,>(
     style,
     contentContainerStyle,
     pointerEvents,
+    windowSize = 3,
   }: FlatListPagerProps<ItemT>,
   forwardedRef: ForwardedRef<FlatList<ItemT>>,
 ) => {
@@ -209,9 +211,10 @@ const FlatListPager = <ItemT,>(
       keyExtractor={keyExtractor}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={contentContainerStyle}
-      windowSize={3}
+      windowSize={windowSize}
       maxToRenderPerBatch={3}
       initialNumToRender={1}
+      updateCellsBatchingPeriod={1}
     />
   );
 };
