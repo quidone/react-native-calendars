@@ -38,7 +38,7 @@ export type PartialCalendarTheme = Partial<CalendarTheme>;
 export type {
   MarkedDays,
   MarkedDaysSelector,
-  MarkedDaysList,
+  MarkedDayItem,
   MarkedDayData,
   DotData,
 } from './providers/MarkedDaysProvider';

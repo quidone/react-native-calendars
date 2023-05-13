@@ -22,23 +22,22 @@ export type DotData = {
 } & Record<string, any>;
 export type MarkedDayData = {dots?: DotData[]};
 export type MarkedDay = [Day, MarkedDayData];
-export type MarkedDaysRange = [Day, Day, MarkedDayData];
-export type MarkedDaysList = (MarkedDay | MarkedDaysRange)[];
+export type MarkedDayRange = [Day, Day, MarkedDayData];
+export type MarkedDayItem = MarkedDay | MarkedDayRange;
 export type MarkedDaysSelector = (info: {
   start: FDay;
   end: FDay;
-}) => MarkedDaysList;
+}) => ReadonlyArray<MarkedDayItem>;
+type MarkedDaysObject = {
+  list?: ReadonlyArray<MarkedDayItem>;
+  selector?: MarkedDaysSelector;
+};
 export type MarkedDays =
-  | MarkedDaysList
+  | ReadonlyArray<MarkedDayItem>
   | MarkedDaysSelector
-  | {
-      list?: MarkedDaysList;
-      selector?: MarkedDaysSelector;
-    };
+  | MarkedDaysObject;
 
-const isMarkedDay = (
-  value: MarkedDay | MarkedDaysRange,
-): value is MarkedDay => {
+const isMarkedDay = (value: MarkedDayItem): value is MarkedDay => {
   return value.length === 2;
 };
 
@@ -52,7 +51,7 @@ type UnifiedMarkedDays = {
 
 const unifyMarkedDays = (
   dest: UnifiedMarkedDays,
-  list: MarkedDaysList,
+  list: ReadonlyArray<MarkedDayItem>,
 ): UnifiedMarkedDays => {
   const push = (day: Day | Date, data: MarkedDayData) => {
     const dayObj = new Date(day);
@@ -117,11 +116,11 @@ const mergeMarkedData = (list: ReadonlyArray<MarkedDayData>) => {
 
 const getMarkedDaysListOrDefault = (
   markedDays: MarkedDays | undefined,
-): MarkedDaysList | null => {
+): ReadonlyArray<MarkedDayItem> | null => {
   if (Array.isArray(markedDays)) {
     return markedDays;
   } else if (typeof markedDays === 'object') {
-    return markedDays.list ?? null;
+    return (markedDays as MarkedDaysObject).list ?? null;
   } else {
     return null;
   }
@@ -132,7 +131,7 @@ const getMarkedDaysSelectorOrDefault = (
   if (typeof markedDays === 'function') {
     return markedDays;
   } else if (markedDays !== undefined && !Array.isArray(markedDays)) {
-    return markedDays.selector ?? null;
+    return (markedDays as MarkedDaysObject).selector ?? null;
   } else {
     return null;
   }

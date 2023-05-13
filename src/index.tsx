@@ -16,7 +16,7 @@ export type {
   // marked days
   MarkedDays,
   MarkedDaysSelector,
-  MarkedDaysList,
+  MarkedDayItem,
   MarkedDayData,
   DotData,
 } from '@calendars/common';
