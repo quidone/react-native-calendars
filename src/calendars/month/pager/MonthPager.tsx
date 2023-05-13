@@ -2,7 +2,9 @@ import React, {
   ForwardedRef,
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
+  useMemo,
 } from 'react';
 import MonthPageView from './MonthPage';
 import Animated, {
@@ -31,7 +33,10 @@ import {
   useRenderedPageData,
 } from '@calendars/common';
 import {useMemoArray, useStableCallback} from '@rozhkov/react-useful-hooks';
-import {useAnimatedListener} from '@utils/react-native-reanimated';
+import {
+  useAnimatedListener,
+  useMemoAnimatedStyle,
+} from '@utils/react-native-reanimated';
 
 export type MonthPagerProps = {
   pageHeight: number | GetPageHeight | undefined;
@@ -68,13 +73,14 @@ const MonthPager = (
   const indexProgressSv = useMonthPageIndexProgress();
   const pages = useRenderedPageData('month');
   const pagerHeightSv = useAnimatedPagerHeight(indexProgressSv, pages);
-  const style = useAnimatedStyle(() => {
+  const style = useMemoAnimatedStyle(() => {
+    'worklet';
     return {
       height: pagerHeightSv.value,
       transform: [{translateY: translateY?.value ?? 0}],
       opacity: opacity?.value ?? 1,
     };
-  });
+  }, [pagerHeightSv, translateY, opacity]);
 
   useAnimatedListener(pagerHeightSv, onHeightChanged);
   useImperativeHandle(forwardedRef, () => ({

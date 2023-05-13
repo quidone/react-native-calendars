@@ -31,7 +31,10 @@ import {
   useWeekPageIndexState,
 } from './WeekPagesProvider';
 import {useMemoArray, useStableCallback} from '@rozhkov/react-useful-hooks';
-import {useAnimatedListener} from '@utils/react-native-reanimated';
+import {
+  useAnimatedListener,
+  useMemoAnimatedStyle,
+} from '@utils/react-native-reanimated';
 
 export type WeekPagerProps = {
   pageHeight: number | GetPageHeight | undefined;
@@ -68,13 +71,14 @@ const WeekPager = (
   const indexProgressSv = useWeekPageIndexProgress();
   const pages = useRenderedPageData('week');
   const pagerHeightSv = useAnimatedPagerHeight(indexProgressSv, pages);
-  const style = useAnimatedStyle(() => {
+  const style = useMemoAnimatedStyle(() => {
+    'worklet';
     return {
       height: pagerHeightSv.value,
       transform: [{translateY: translateY?.value ?? 0}],
       opacity: opacity?.value ?? 1,
     };
-  });
+  }, [pagerHeightSv, translateY, opacity]);
 
   useAnimatedListener(pagerHeightSv, onHeightChanged);
   useImperativeHandle(forwardedRef, () => ({
