@@ -9,7 +9,9 @@ export {
   getMonthPageEndOrDefault,
 } from './pager/utils';
 export {getMonthPageIndexByDay} from './utils/page-index';
-export {default as MonthPager, MonthPagerProps} from './pager/MonthPager';
+
+export type {MonthPagerProps} from './pager/MonthPager';
+export {default as MonthPager} from './pager/MonthPager';
 
 import MonthCalendar from './MonthCalendar';
 export type {MonthCalendarProps} from './MonthCalendar';
