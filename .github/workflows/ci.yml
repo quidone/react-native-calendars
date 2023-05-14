@@ -18,10 +18,10 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint files
-        run: yarn lint
+        run: yarn lint:check
 
       - name: Typecheck files
-        run: yarn typecheck
+        run: yarn tsc:check
 
   test:
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run unit tests
-        run: yarn test --maxWorkers=2 --coverage
+        run: yarn test:run --maxWorkers=2 --coverage
 
   build:
     runs-on: ubuntu-latest

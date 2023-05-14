@@ -27,9 +27,9 @@
     "!**/.*"
   ],
   "scripts": {
-    "test": "jest",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "test:run": "jest",
+    "tsc:check": "tsc --noEmit",
+    "lint:check": "eslint \"**/*.{js,ts,tsx}\"",
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install"
