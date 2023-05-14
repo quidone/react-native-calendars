@@ -12,7 +12,13 @@ export type PageIndex = WeekPageIndex | MonthPageIndex;
 
 export type GetPageHeight = (info: {
   theme: CalendarTheme;
+  /**
+   * Current number of rows per page
+   */
   rowCount: number;
+  /**
+   * The maximum number of rows possible per page
+   */
   maxRowCount: number;
 }) => number;
 

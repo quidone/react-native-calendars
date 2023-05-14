@@ -12,7 +12,7 @@ import {
 import type {GetPageHeight, WeekPageIndex} from '@calendars/common';
 
 const ROW_COUNT = 1;
-const MAX_ROW_COUNT = 1; // The maximum number of rows possible per page
+const MAX_ROW_COUNT = 1;
 const isSecondary = () => false;
 
 type WeekPageProps = {
