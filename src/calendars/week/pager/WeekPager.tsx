@@ -7,23 +7,19 @@ import React, {
 import useWeekArrayIndex from './usePageIndexNumber';
 import WeekPageView from './WeekPage';
 import {
-  useCalendarWidth,
   CalendarMethods,
-  GetPageHeight,
-  useLocaledDayjs,
-  WeekPageIndex,
-  useRenderedPageData,
-  useAnimatedPagerHeight,
-  SyncIndexConfig,
   FlatListPager,
+  GetPageHeight,
   RenderPage,
+  SyncIndexConfig,
+  useAnimatedPagerHeight,
+  useCalendarWidth,
+  useLocaledDayjs,
+  useRenderedPageData,
+  WeekPageIndex,
 } from '@calendars/common';
 import {getPageIndexNumber, getWeekPageIndexByDay} from '../utils/page-index';
-import Animated, {
-  SharedValue,
-  useAnimatedRef,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
+import Animated, {SharedValue, useAnimatedRef} from 'react-native-reanimated';
 import type {FlatList, StyleProp, ViewStyle} from 'react-native';
 import {
   useWeekPageIndexes,
@@ -67,7 +63,7 @@ const WeekPager = (
   const calendarWidth = useCalendarWidth();
   const [, changePageIndex] = useWeekPageIndexState();
   const changeIndex = useStableCallback((index: number) => {
-    changePageIndex(indexes[index]);
+    changePageIndex(indexes[index]!);
   });
 
   const indexProgressSv = useWeekPageIndexProgress();

@@ -85,7 +85,7 @@ type PagesControllerProps = {
   enableSwitchingByGesture: boolean | undefined;
   getMonthPagerOffsetY: GetMonthPagerOffsetY | undefined;
   renderMonthPager: RenderMonthPager;
-  renderWeekPager: renderWeekPager;
+  renderWeekPager: RenderWeekPager;
 };
 
 const PagersController = (

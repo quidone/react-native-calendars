@@ -2,16 +2,10 @@ import React, {
   ForwardedRef,
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
-  useMemo,
 } from 'react';
 import MonthPageView from './MonthPage';
-import Animated, {
-  SharedValue,
-  useAnimatedRef,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
+import Animated, {SharedValue, useAnimatedRef} from 'react-native-reanimated';
 import type {FlatList, StyleProp, ViewStyle} from 'react-native';
 import {
   useMonthPageIndexes,
@@ -69,7 +63,7 @@ const MonthPager = (
   const calendarWidth = useCalendarWidth();
   const [, changePageIndex] = useMonthPageIndexState();
   const changeIndex = useStableCallback((index: number) => {
-    changePageIndex(indexes[index]);
+    changePageIndex(indexes[index]!);
   });
 
   const indexProgressSv = useMonthPageIndexProgress();

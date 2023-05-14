@@ -69,7 +69,7 @@ export const createMonthIndexes = memoizeOne(
   },
   (newInputs, lastInputs) => {
     return newInputs.every((arg1, index) => {
-      return fDay(arg1) === fDay(lastInputs[index]);
+      return fDay(arg1) === fDay(lastInputs[index]!);
     });
   },
 );
