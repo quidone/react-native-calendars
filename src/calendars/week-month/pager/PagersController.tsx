@@ -247,7 +247,6 @@ const PagersController = (
           syncIndexIfChanged: isWeekType ? syncWithAnim : syncWithoutAnim,
           translateY: weekTranslateYSv,
           opacity: weekOpacitySv,
-          windowSize: !isWeekType ? 1 : undefined,
         })}
         {renderMonthPager({
           ref: monthPagerRef,
@@ -257,7 +256,6 @@ const PagersController = (
           syncIndexIfChanged: isMonthType ? syncWithAnim : syncWithoutAnim,
           translateY: monthTranslateYSv,
           opacity: monthOpacitySv,
-          windowSize: !isMonthType ? 1 : undefined,
         })}
       </Animated.View>
     </GestureDetector>
