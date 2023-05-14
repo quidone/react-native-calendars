@@ -26,12 +26,12 @@ export const createDaysOfWeek = (start: dayjs.Dayjs): DaysOfWeek => {
   ];
 };
 
-export const getDefaultPageHeight: GetPageHeight = ({theme, rowCount}) => {
+export const getDefaultPageHeight: GetPageHeight = ({theme, maxRowCount}) => {
   return (
     theme.pagePaddingTop +
     theme.pagePaddingBottom +
-    rowCount * theme.dayContainerSize +
-    (rowCount - 1) * theme.pageBetweenRows
+    maxRowCount * theme.dayContainerSize +
+    (maxRowCount - 1) * theme.pageBetweenRows
   );
 };
 

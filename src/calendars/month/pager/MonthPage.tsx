@@ -13,6 +13,8 @@ import {
   PageView,
 } from '@calendars/common';
 
+const MAX_ROW_COUNT = 6; // The maximum number of rows possible per page
+
 type MonthPageProps = {
   pageIndex: MonthPageIndex;
   arrayIndex: number;
@@ -29,7 +31,9 @@ const MonthPage = ({
   const calendarWidth = useCalendarWidth();
   const theme = useTheme();
   const height =
-    typeof pageHeight === 'number' ? pageHeight : pageHeight({theme, rowCount});
+    typeof pageHeight === 'number'
+      ? pageHeight
+      : pageHeight({theme, rowCount, maxRowCount: MAX_ROW_COUNT});
   const isSecondary = useCallback(
     (day: dayjs.Dayjs) => day.month() !== pageIndex.month,
     [pageIndex.month],

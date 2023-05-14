@@ -13,6 +13,7 @@ export type PageIndex = WeekPageIndex | MonthPageIndex;
 export type GetPageHeight = (info: {
   theme: CalendarTheme;
   rowCount: number;
+  maxRowCount: number;
 }) => number;
 
 export type OnChangePageIndex<T extends WeekPageIndex | MonthPageIndex> =

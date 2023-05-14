@@ -11,7 +11,8 @@ import {
 } from '@calendars/common';
 import type {GetPageHeight, WeekPageIndex} from '@calendars/common';
 
-const ROW_COUNT_IN_MONTH = 1;
+const ROW_COUNT = 1;
+const MAX_ROW_COUNT = 1; // The maximum number of rows possible per page
 const isSecondary = () => false;
 
 type WeekPageProps = {
@@ -31,7 +32,11 @@ const WeekPage = ({
   const height =
     typeof pageHeight === 'number'
       ? pageHeight
-      : pageHeight({theme, rowCount: ROW_COUNT_IN_MONTH});
+      : pageHeight({
+          theme,
+          rowCount: ROW_COUNT,
+          maxRowCount: MAX_ROW_COUNT,
+        });
 
   useRenderedPageRegisterEffect(
     'week',
@@ -39,7 +44,7 @@ const WeekPage = ({
     height,
     days[FIRST_DAY_OF_WEEK_INDEX],
     days[LAST_DAY_OF_WEEK_INDEX],
-    ROW_COUNT_IN_MONTH,
+    ROW_COUNT,
   );
 
   const rows = useMemo(() => [days], [days]);
