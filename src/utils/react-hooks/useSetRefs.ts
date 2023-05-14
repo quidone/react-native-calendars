@@ -24,8 +24,7 @@ const useSetRefs = <T>(...refs: ReadonlyArray<SetRef<T>>) => {
         setInstanceToRef(ref, instance);
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [...refs],
+    [...refs], // eslint-disable-line react-hooks/exhaustive-deps
   );
 };
 

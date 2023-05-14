@@ -35,8 +35,7 @@ const TodayProvider = (props: TodayProviderProps) => {
     return () => {
       clearInterval(id);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ldayjs]);
+  }, [ldayjs]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <TodayContext.Provider value={today} children={children} />;
 };

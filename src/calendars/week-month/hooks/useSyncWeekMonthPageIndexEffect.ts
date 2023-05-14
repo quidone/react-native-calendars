@@ -32,8 +32,7 @@ const useSyncWeekMonthPageIndexEffect = (calendarType: CalendarType) => {
 
   useEffect(() => {
     syncPageIndex();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calendarType, selectedDay, weekPageIndex, monthPageIndex]);
+  }, [calendarType, selectedDay, weekPageIndex, monthPageIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 export default useSyncWeekMonthPageIndexEffect;

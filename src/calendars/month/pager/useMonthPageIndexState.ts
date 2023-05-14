@@ -67,8 +67,7 @@ const useMonthPageIndexState = (
       year: selectedDay.year(),
       month: selectedDay.month(),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDay]);
+  }, [selectedDay]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return [pageIndex, changePageIndex] as [
     typeof pageIndex,

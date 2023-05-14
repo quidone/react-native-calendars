@@ -177,8 +177,7 @@ const FlatListPager = <ItemT,>(
       return;
     }
     syncIndex();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+  }, [index]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Sync FlatListPager when changed pageLength
   useEffect(() => {
@@ -191,8 +190,7 @@ const FlatListPager = <ItemT,>(
         animated: false,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageLength]);
+  }, [pageLength]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.FlatList

@@ -68,8 +68,7 @@ const DayProvider = ({
         setDayState(dayProp);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDayProp]);
+  }, [selectedDayProp]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const stateResult = useMemoArray<DayStateContextValue>([
     selectedDay,

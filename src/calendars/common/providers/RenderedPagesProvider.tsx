@@ -143,14 +143,12 @@ export const useRenderedPageRegisterEffect = (
       return;
     }
     onPageChanged({key, arrayIndex, start, end, pageHeight, type, rowCount});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [start, end, pageHeight, rowCount]);
+  }, [start, end, pageHeight, rowCount]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     onPageMounted({key, arrayIndex, start, end, pageHeight, type, rowCount});
     return () => {
       onPageUnmounted(key);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 };
