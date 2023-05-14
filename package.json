@@ -30,6 +30,7 @@
     "test:run": "jest",
     "tsc:check": "tsc --noEmit",
     "lint:check": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint:fix": "eslint --fix \"**/*.{js,ts,tsx}\"",
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install"
