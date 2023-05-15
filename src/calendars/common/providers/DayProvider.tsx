@@ -15,7 +15,7 @@ import {
 import {Day, fDay, FDay, setNoon} from '@utils/day';
 
 export type OnChangeDay = (event: {value: FDay}) => void;
-export type OnDayPress = (event: {day: FDay}) => void;
+export type OnDayPress = (event: {day: FDay; selectedDay: FDay | null}) => void;
 
 type DayRangeContextValue = {
   dayMin: dayjs.Dayjs | null;
@@ -92,7 +92,10 @@ const DayProvider = ({
   const onDayPressResult = useStableCallback<OnDayPressContextValue>(
     ({day}) => {
       if (onDayPressProp !== undefined) {
-        onDayPressProp({day: fDay(day)});
+        onDayPressProp({
+          day: fDay(day),
+          selectedDay: selectedDay !== null ? fDay(selectedDay) : null,
+        });
       }
       changeDay(day);
     },
