@@ -31,6 +31,10 @@
     "tsc:check": "tsc --noEmit",
     "lint:check": "eslint \"**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint --fix \"**/*.{js,ts,tsx}\"",
+    "build:check-all": "yarn lint:fix && yarn tsc:check",
+    "build:resolve": "babel --config-file ./babel.local-namespace-config.js ./src --out-dir ./src --extensions .ts,.js,.tsx,.json --keep-file-extension",
+    "prepack": "yarn build:check-all && cp -r ./src ./copied-src && yarn build:resolve && yarn lint:fix && bob build",
+    "postpublish": "rm -r ./src && cp -r ./copied-src ./src && rm -r ./copied-src",
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install"
@@ -59,11 +63,13 @@
   "peerDependencies": {
     "dayjs": "^1.10.0",
     "react": "^16.8 || ^17 || ^18",
-    "react-native": ">=64",
+    "react-native": ">=0.64",
     "react-native-gesture-handler": "^2.0.0",
     "react-native-reanimated": "^2 || ^3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.5",
+    "@babel/plugin-syntax-typescript": "^7.21.4",
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.2.2",
     "@react-native-community/eslint-config": "^3.0.2",
@@ -72,6 +78,7 @@
     "@types/jest": "^28.1.2",
     "@types/react": "^18.2.0",
     "@types/react-native": "0.70.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "commitlint": "^17.0.2",
     "dayjs": "^1.11.7",
     "del-cli": "^5.0.0",
