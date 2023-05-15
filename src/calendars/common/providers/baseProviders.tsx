@@ -15,7 +15,7 @@ import RenderedPagesProvider, {PageData} from './RenderedPagesProvider';
 import StylesProvider, {CalendarStyles} from './StylesProvider';
 import ThemeProvider, {CalendarTheme} from './ThemeProvider';
 import TodayProvider from './TodayProvider';
-import DayProvider, {OnChangeDay, OnDayPress} from './DayProvider';
+import DayProvider, {OnDayChanged, OnDayPress} from './DayProvider';
 import type {Day} from '@utils/day';
 
 export type BaseCalendarProps = {
@@ -23,7 +23,7 @@ export type BaseCalendarProps = {
   theme?: Partial<CalendarTheme>;
 
   selectedDay?: Day | null;
-  onChangeDay?: OnChangeDay;
+  onDayChanged?: OnDayChanged;
   onDayPress?: OnDayPress;
   dayMin?: Day;
   dayMax?: Day;
@@ -50,7 +50,7 @@ const baseProviders = <
       theme,
 
       selectedDay,
-      onChangeDay,
+      onDayChanged,
       onDayPress,
       markedDays,
       dayMin,
@@ -86,7 +86,7 @@ const baseProviders = <
               dayMin={dayMin}
               dayMax={dayMax}
               day={selectedDay}
-              onChangeDay={onChangeDay}
+              onDayChanged={onDayChanged}
               onDayPress={onDayPress}>
               <RenderedPagesProvider
                 onPageMounted={onPageMounted}

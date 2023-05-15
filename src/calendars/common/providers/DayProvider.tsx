@@ -14,7 +14,7 @@ import {
 } from '@rozhkov/react-useful-hooks';
 import {Day, fDay, FDay, setNoon} from '@utils/day';
 
-export type OnChangeDay = (event: {value: FDay}) => void;
+export type OnDayChanged = (event: {day: FDay}) => void;
 export type OnDayPress = (event: {day: FDay; selectedDay: FDay | null}) => void;
 
 type DayRangeContextValue = {
@@ -39,7 +39,7 @@ type DayProviderProps = PropsWithChildren<{
   dayMin: FDay | string | undefined;
   dayMax: FDay | string | undefined;
   day: Day | null | undefined;
-  onChangeDay: OnChangeDay | undefined;
+  onDayChanged: OnDayChanged | undefined;
   onDayPress: OnDayPress | undefined;
 }>;
 
@@ -47,7 +47,7 @@ const DayProvider = ({
   dayMin,
   dayMax,
   day: selectedDayProp,
-  onChangeDay: onChangeDayProp,
+  onDayChanged: onDayChangedProp,
   onDayPress: onDayPressProp,
   children,
 }: DayProviderProps) => {
@@ -58,15 +58,15 @@ const DayProvider = ({
         : null,
     );
 
-  const onChangeDay = useStableCallback(onChangeDayProp);
+  const onDayChanged = useStableCallback(onDayChangedProp);
   const changeDay = useCallback(
     (day: dayjs.Dayjs) => {
       if (selectedDayRef.current !== day) {
         setDayState(day);
-        onChangeDay?.({value: fDay(day)});
+        onDayChanged?.({day: fDay(day)});
       }
     },
-    [onChangeDay, selectedDayRef, setDayState],
+    [onDayChanged, selectedDayRef, setDayState],
   );
 
   // sync with selectedDayProps
