@@ -15,6 +15,11 @@ import type {CalendarTheme} from './providers/ThemeProvider';
 export type PartialCalendarTheme = Partial<CalendarTheme>;
 export {useTheme, CalendarTheme} from './providers/ThemeProvider';
 
+export type {
+  DayContainerStyleFn,
+  DayTextStyleFn,
+} from './providers/StylesProvider';
+
 export type {PageData} from './providers/RenderedPagesProvider';
 export {
   useRenderedPageData,

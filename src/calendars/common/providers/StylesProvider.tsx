@@ -260,6 +260,19 @@ const useCalendarBaseAnimatedStyles = ({
 };
 
 type CalendarBaseStyles = CalendarBaseStaticStyles & CalendarBaseAnimatedStyles;
+
+export type DayContainerStyleFn = (info: {
+  isSelected: boolean;
+  isToday: boolean;
+  isDisabled: boolean;
+  isSecondary: boolean;
+}) => ViewStyle;
+export type DayTextStyleFn = (info: {
+  isSelected: boolean;
+  isToday: boolean;
+  isDisabled: boolean;
+  isSecondary: boolean;
+}) => TextStyle;
 export type CalendarStyles = {
   calendarContainerStyle: StyleProp<ViewStyle> | undefined;
   monthHeaderRowStyle: StyleProp<ViewStyle> | undefined;
@@ -269,24 +282,8 @@ export type CalendarStyles = {
   weekDayTitleStyle: StyleProp<TextStyle> | undefined;
   pageContainerStyle: StyleProp<ViewStyle> | undefined;
   dayRowStyle: StyleProp<ViewStyle>;
-  dayContainerStyle:
-    | StyleProp<ViewStyle>
-    | ((info: {
-        isSelected: boolean;
-        isToday: boolean;
-        isDisabled: boolean;
-        isSecondary: boolean;
-      }) => ViewStyle)
-    | undefined;
-  dayTextStyle:
-    | StyleProp<TextStyle>
-    | ((info: {
-        isSelected: boolean;
-        isToday: boolean;
-        isDisabled: boolean;
-        isSecondary: boolean;
-      }) => TextStyle)
-    | undefined;
+  dayContainerStyle: StyleProp<ViewStyle> | DayContainerStyleFn | undefined;
+  dayTextStyle: StyleProp<TextStyle> | DayTextStyleFn | undefined;
   dayDotsRowStyle: StyleProp<ViewStyle> | undefined;
   dayDotStyle: StyleProp<ViewStyle> | undefined;
 };

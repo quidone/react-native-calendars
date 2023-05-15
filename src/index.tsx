@@ -24,6 +24,9 @@ export type {
   MarkedDayItem,
   MarkedDayData,
   DotData,
+  // styles
+  DayContainerStyleFn,
+  DayTextStyleFn,
 } from '@calendars/common';
 export {useTheme, useDots} from '@calendars/common';
 
