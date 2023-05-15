@@ -14,6 +14,9 @@ import {
 } from '@rozhkov/react-useful-hooks';
 import {Day, fDay, FDay, setNoon} from '@utils/day';
 
+export type OnChangeDay = (event: {value: FDay}) => void;
+export type OnDayPress = (event: {day: FDay}) => void;
+
 type DayRangeContextValue = {
   dayMin: dayjs.Dayjs | null;
   dayMax: dayjs.Dayjs | null;
@@ -26,13 +29,18 @@ type DayStateContextValue = [dayjs.Dayjs | null, (day: dayjs.Dayjs) => void];
 const DayStateContext = createContext<DayStateContextValue | undefined>(
   undefined,
 );
-export type OnChangeDay = (event: {value: FDay}) => void;
+
+type OnDayPressContextValue = (event: {day: dayjs.Dayjs}) => void;
+const OnDayPressContext = createContext<OnDayPressContextValue | undefined>(
+  undefined,
+);
 
 type DayProviderProps = PropsWithChildren<{
   dayMin: FDay | string | undefined;
   dayMax: FDay | string | undefined;
   day: Day | null | undefined;
   onChangeDay: OnChangeDay | undefined;
+  onDayPress: OnDayPress | undefined;
 }>;
 
 const DayProvider = ({
@@ -40,6 +48,7 @@ const DayProvider = ({
   dayMax,
   day: selectedDayProp,
   onChangeDay: onChangeDayProp,
+  onDayPress: onDayPressProp,
   children,
 }: DayProviderProps) => {
   const [selectedDay, setDayState, selectedDayRef] =
@@ -80,11 +89,21 @@ const DayProvider = ({
       dayMax: dayMax !== undefined ? dayjs.utc(dayMax).endOf('day') : null,
     };
   }, [dayMax, dayMin]);
+  const onDayPressResult = useStableCallback<OnDayPressContextValue>(
+    ({day}) => {
+      if (onDayPressProp !== undefined) {
+        onDayPressProp({day: fDay(day)});
+      }
+      changeDay(day);
+    },
+  );
 
   return (
     <DayRangeContext.Provider value={rangeResult}>
       <DayStateContext.Provider value={stateResult}>
-        {children}
+        <OnDayPressContext.Provider value={onDayPressResult}>
+          {children}
+        </OnDayPressContext.Provider>
       </DayStateContext.Provider>
     </DayRangeContext.Provider>
   );
@@ -101,6 +120,11 @@ export const useDayRange = createRequiredContextValueHook(
 export const useDayState = createRequiredContextValueHook(
   DayStateContext,
   'useDayState',
+  'DayProvider',
+);
+export const useOnDayPress = createRequiredContextValueHook(
+  OnDayPressContext,
+  'useOnDayPress',
   'DayProvider',
 );
 

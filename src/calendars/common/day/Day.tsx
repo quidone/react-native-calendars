@@ -7,8 +7,8 @@ import {useIsDayToday} from '../providers/TodayProvider';
 import {useMarkedData} from '../providers/MarkedDaysProvider';
 import {
   useDayInRange,
-  useDayState,
   useIsSelectedDay,
+  useOnDayPress,
 } from '../providers/DayProvider';
 import {useStableCallback} from '@rozhkov/react-useful-hooks';
 import DotsContext from '../dot/DotsContext';
@@ -24,9 +24,9 @@ const Day = ({day, isSecondary = false}: DayProps) => {
   const isSelected = useIsSelectedDay(day);
   const isDisabled = !useDayInRange(day);
   const isToday = useIsDayToday(day);
-  const [, changeDay] = useDayState();
   const markedData = useMarkedData(day);
-  const onPress = useStableCallback(() => changeDay(day));
+  const onDayPress = useOnDayPress();
+  const onPress = useStableCallback(() => onDayPress({day}));
 
   const renderContent = () => {
     if (renderDay != null) {

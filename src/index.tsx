@@ -12,6 +12,8 @@ export type {
   OnMonthInitialized,
   OnMonthChanged,
   OnChangePageIndex,
+  OnChangeDay,
+  OnDayPress,
   // renders
   RenderDay,
   RenderMonthTitleHeader,

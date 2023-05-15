@@ -33,7 +33,7 @@ export {
 
 export type {LDayjs, Locale} from './providers/LocaleProvider';
 export {useLocaledDayjs} from './providers/LocaleProvider';
-export {useDayState} from './providers/DayProvider';
+export {useDayState, OnDayPress, OnChangeDay} from './providers/DayProvider';
 export {CalendarMethods} from './providers/MethodsProvider';
 export {useCalendarWidth} from './providers/CalendarWidthProvider';
 
