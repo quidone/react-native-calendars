@@ -266,13 +266,13 @@ export type DayContainerStyleFn = (info: {
   isToday: boolean;
   isDisabled: boolean;
   isSecondary: boolean;
-}) => ViewStyle;
+}) => ViewStyle | undefined;
 export type DayTextStyleFn = (info: {
   isSelected: boolean;
   isToday: boolean;
   isDisabled: boolean;
   isSecondary: boolean;
-}) => TextStyle;
+}) => TextStyle | undefined;
 export type CalendarStyles = {
   calendarContainerStyle: StyleProp<ViewStyle> | undefined;
   monthHeaderRowStyle: StyleProp<ViewStyle> | undefined;
@@ -281,7 +281,7 @@ export type CalendarStyles = {
   weekDayContainerStyle: StyleProp<ViewStyle> | undefined;
   weekDayTitleStyle: StyleProp<TextStyle> | undefined;
   pageContainerStyle: StyleProp<ViewStyle> | undefined;
-  dayRowStyle: StyleProp<ViewStyle>;
+  dayRowStyle: StyleProp<ViewStyle> | undefined;
   dayContainerStyle: StyleProp<ViewStyle> | DayContainerStyleFn | undefined;
   dayTextStyle: StyleProp<TextStyle> | DayTextStyleFn | undefined;
   dayDotsRowStyle: StyleProp<ViewStyle> | undefined;
