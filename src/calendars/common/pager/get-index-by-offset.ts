@@ -10,9 +10,8 @@ export const getIndexByOffset = (
     return 0;
   }
 
-  const whole = Math.trunc(offset / length);
-  const part = offset % length;
-  const calc = whole + (part > length / 2 ? 1 : 0);
+  const calc = Math.trunc((offset + length / 2) / length);
+
   if (calc < indexMin) {
     return indexMin;
   } else if (calc > indexMax) {
