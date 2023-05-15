@@ -9,7 +9,7 @@
   "source": "src/index",
   "files": [
     "src",
-    "lib",
+    "dist",
     "android",
     "ios",
     "cpp",
@@ -134,7 +134,7 @@
   },
   "react-native-builder-bob": {
     "source": "src",
-    "output": "lib",
+    "output": "dist",
     "targets": [
       "commonjs",
       "module",
