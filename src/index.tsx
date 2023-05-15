@@ -33,4 +33,7 @@ export type {MonthCalendarProps} from '@calendars/month';
 export {default as MonthCalendar} from '@calendars/month';
 
 export type {WMCalendarProps} from '@calendars/week-month';
-export {default as WMCalendar} from '@calendars/week-month';
+export {
+  default as WMCalendar,
+  createOuterSwitchContainer,
+} from '@calendars/week-month';
