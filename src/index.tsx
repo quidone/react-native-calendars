@@ -2,6 +2,7 @@ export type {Day, FDay} from '@utils/day';
 export {F_DAY} from '@utils/day';
 
 export type {
+  CalendarMethods,
   Locale,
   PartialCalendarTheme as CalendarTheme,
   PageData,
