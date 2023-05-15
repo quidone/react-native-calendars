@@ -24,7 +24,6 @@ type CalendarBaseStaticStyles = {
   pageContainerStyle: ViewStyle;
   dayRowStyle: ViewStyle;
   dayContainerStyle: ViewStyle;
-  dayTodayContainerStyle: ViewStyle;
   daySecondaryContainerStyle: ViewStyle;
   dayTitleStyle: TextStyle;
   dayDotsRowStyle: ViewStyle;
@@ -47,8 +46,6 @@ const buildStaticStyles = ({
   pagePaddingBottom,
   dayContainerSize,
   dayFontSize,
-  dayTodayBorderWidth,
-  dayTodayBorderColor,
   dayColor,
   dayBgColor,
   dayDotSize,
@@ -98,10 +95,6 @@ const buildStaticStyles = ({
       width: dayContainerSize,
       // initialize values
       backgroundColor: getThemePropValue(dayBgColor),
-    },
-    dayTodayContainerStyle: {
-      borderWidth: dayTodayBorderWidth,
-      borderColor: dayTodayBorderColor,
     },
     daySecondaryContainerStyle: {
       opacity: 0.4,

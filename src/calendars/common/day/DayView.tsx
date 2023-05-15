@@ -60,7 +60,6 @@ const DayView = ({
           <Animated.View
             style={[
               base.dayContainerStyle,
-              isToday ? base.dayTodayContainerStyle : undefined,
               isSecondary ? base.daySecondaryContainerStyle : undefined,
               dayContainerStyle,
               dayContainerPropStyle,

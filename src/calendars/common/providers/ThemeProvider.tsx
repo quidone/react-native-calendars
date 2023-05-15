@@ -34,8 +34,6 @@ export type CalendarTheme = {
   dayFontSize: number;
   dayBgColor: string | AnimConfig<string>;
   dayColor: string | AnimConfig<string>;
-  dayTodayBorderWidth: number;
-  dayTodayBorderColor: string;
   daySelectedBgColor: string | AnimConfig<string>;
   daySelectedColor: string | AnimConfig<string>;
   dayDisabledOpacity: number;
@@ -61,8 +59,6 @@ const defaultTheme: CalendarTheme = {
 
   dayContainerSize: 40,
   dayFontSize: 17,
-  dayTodayBorderColor: PRIMARY_COLOR,
-  dayTodayBorderWidth: 2.5,
   dayBgColor: {value: 'transparent', type: 'timing', option: {duration: 50}},
   daySelectedBgColor: {
     value: PRIMARY_COLOR,
