@@ -1,7 +1,6 @@
 import React, {
   createContext,
   PropsWithChildren,
-  useCallback,
   useEffect,
   useMemo,
 } from 'react';
@@ -54,34 +53,45 @@ const DayProvider = ({
   onDayPress: onDayPressProp,
   children,
 }: DayProviderProps) => {
+  const isDayPropSet = selectedDayProp !== undefined;
+  const selectedDayPropObj = useMemo(
+    () =>
+      selectedDayProp != null ? setNoon(dayjs.utc(selectedDayProp)) : null,
+    [selectedDayProp],
+  );
   const [selectedDay, setDayState, selectedDayRef] =
     useStateRef<dayjs.Dayjs | null>(() =>
       selectedDayProp != null ? setNoon(dayjs.utc(selectedDayProp)) : null,
     );
 
-  const onDayChanged = useStableCallback(onDayChangedProp);
-  const changeDay = useCallback(
-    (day: dayjs.Dayjs) => {
-      if (selectedDayRef.current !== day) {
+  const changeDay = useStableCallback((day: dayjs.Dayjs) => {
+    const selDay = isDayPropSet ? selectedDayPropObj : selectedDayRef.current;
+    if (!day.isSame(selDay, 'date')) {
+      if (isDayPropSet) {
         setDayState(day);
-        onDayChanged?.({day: fDay(day)});
       }
-    },
-    [onDayChanged, selectedDayRef, setDayState],
-  );
+      onDayChangedProp?.({day: fDay(day)});
+    }
+  });
 
-  // sync with selectedDayProps
+  // sync internal state with selectedDay from props
   useEffect(() => {
-    if (selectedDayProp != null) {
-      const dayProp = setNoon(dayjs.utc(selectedDayProp));
-      if (!dayProp.isSame(selectedDayRef.current, 'date')) {
-        setDayState(dayProp);
+    if (isDayPropSet) {
+      return;
+    }
+    const selDay = selectedDayRef.current;
+    if (selectedDayProp == null && selDay != null) {
+      setDayState(null);
+    } else if (selectedDayProp != null) {
+      const dayProp = dayjs.utc(selectedDayProp);
+      if (!dayProp.isSame(selDay, 'date')) {
+        setDayState(setNoon(dayProp));
       }
     }
-  }, [selectedDayProp]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isDayPropSet, selectedDayProp]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const stateResult = useMemoArray<DayStateContextValue>([
-    selectedDay,
+    isDayPropSet ? selectedDayPropObj : selectedDay,
     changeDay,
   ]);
   const rangeResult = useMemo<DayRangeContextValue>(() => {
@@ -93,9 +103,10 @@ const DayProvider = ({
   const onDayPressResult = useStableCallback<OnDayPressContextValue>(
     ({day, isDisabled}) => {
       if (onDayPressProp !== undefined) {
+        const selDay = selectedDayRef.current;
         onDayPressProp({
           day: fDay(day),
-          selectedDay: selectedDay != null ? fDay(selectedDay) : null,
+          selectedDay: selDay != null ? fDay(selDay) : null,
         });
       }
       if (!isDisabled) {
