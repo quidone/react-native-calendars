@@ -21,10 +21,10 @@ type DayProps = {
 
 const Day = ({day, isSecondary = false}: DayProps) => {
   const {renderDay} = useCustomRenders();
-  const isSelected = useIsSelectedDay(day);
+  const markedData = useMarkedData(day);
+  const isSelected = useIsSelectedDay(day) || Boolean(markedData?.selected);
   const isDisabled = !useDayInRange(day);
   const isToday = useIsDayToday(day);
-  const markedData = useMarkedData(day);
   const onDayPress = useOnDayPress();
   const onPress = useStableCallback(() => onDayPress({day}));
 
