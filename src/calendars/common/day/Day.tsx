@@ -26,7 +26,7 @@ const Day = ({day, isSecondary = false}: DayProps) => {
   const isDisabled = !useDayInRange(day) || Boolean(markedData?.disabled);
   const isToday = useIsDayToday(day);
   const onDayPress = useOnDayPress();
-  const onPress = useStableCallback(() => onDayPress({day}));
+  const onPress = useStableCallback(() => onDayPress({day, isDisabled}));
 
   const renderContent = () => {
     if (renderDay != null) {

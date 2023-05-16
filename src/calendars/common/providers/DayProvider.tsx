@@ -30,7 +30,10 @@ const DayStateContext = createContext<DayStateContextValue | undefined>(
   undefined,
 );
 
-type OnDayPressContextValue = (event: {day: dayjs.Dayjs}) => void;
+type OnDayPressContextValue = (event: {
+  day: dayjs.Dayjs;
+  isDisabled: boolean;
+}) => void;
 const OnDayPressContext = createContext<OnDayPressContextValue | undefined>(
   undefined,
 );
@@ -88,14 +91,16 @@ const DayProvider = ({
     };
   }, [dayMax, dayMin]);
   const onDayPressResult = useStableCallback<OnDayPressContextValue>(
-    ({day}) => {
+    ({day, isDisabled}) => {
       if (onDayPressProp !== undefined) {
         onDayPressProp({
           day: fDay(day),
           selectedDay: selectedDay != null ? fDay(selectedDay) : null,
         });
       }
-      changeDay(day);
+      if (!isDisabled) {
+        changeDay(day);
+      }
     },
   );
 

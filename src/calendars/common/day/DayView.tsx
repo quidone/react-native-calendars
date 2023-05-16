@@ -1,4 +1,4 @@
-import React, {memo, ReactNode} from 'react';
+import React, {memo} from 'react';
 import {TouchableWithoutFeedback} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {useStyles} from '../providers/StylesProvider';
@@ -43,34 +43,26 @@ const DayView = ({
         })
       : prop.dayTextStyle;
 
-  const renderTouchableContainer = (child: ReactNode) => {
-    return !isDisabled ? (
-      <TouchableWithoutFeedback onPress={onPress}>
-        {child as any}
-      </TouchableWithoutFeedback>
-    ) : (
-      child
-    );
-  };
-
   return (
     <LazyAnimatedStylesController isSelected={isSelected}>
       {({dayContainerStyle, textColorStyle}) => {
-        return renderTouchableContainer(
-          <Animated.View
-            style={[
-              base.dayContainerStyle,
-              isSecondary ? base.daySecondaryContainerStyle : undefined,
-              isDisabled ? base.dayDisabledContainerStyle : undefined,
-              dayContainerStyle,
-              dayContainerPropStyle,
-            ]}>
-            <Animated.Text
-              style={[base.dayTitleStyle, textColorStyle, dayTextPropStyle]}>
-              {day}
-            </Animated.Text>
-            <DotsRow isDaySelected={isSelected} />
-          </Animated.View>,
+        return (
+          <TouchableWithoutFeedback onPress={onPress}>
+            <Animated.View
+              style={[
+                base.dayContainerStyle,
+                isSecondary ? base.daySecondaryContainerStyle : undefined,
+                isDisabled ? base.dayDisabledContainerStyle : undefined,
+                dayContainerStyle,
+                dayContainerPropStyle,
+              ]}>
+              <Animated.Text
+                style={[base.dayTitleStyle, textColorStyle, dayTextPropStyle]}>
+                {day}
+              </Animated.Text>
+              <DotsRow isDaySelected={isSelected} />
+            </Animated.View>
+          </TouchableWithoutFeedback>
         );
       }}
     </LazyAnimatedStylesController>
