@@ -25,8 +25,19 @@ import Animated, {
   useScrollViewOffset,
 } from 'react-native-reanimated';
 import {ScrollView as GNScrollView} from 'react-native-gesture-handler';
-import {useArgByRef, useIsFirstRender} from '@rozhkov/react-useful-hooks';
+import {
+  useArgByRef,
+  useInit,
+  useIsFirstRender,
+  useStableCallback,
+} from '@rozhkov/react-useful-hooks';
 import {useSetRefs} from '@utils/react-hooks';
+
+const MemoAnimatedFlatList = memo(
+  Animated.FlatList,
+) as unknown as typeof Animated.FlatList;
+
+const renderScrollComponent = (props: any) => <GNScrollView {...props} />;
 
 export type SyncIndexConfig = {
   enable: boolean;
@@ -84,6 +95,7 @@ const FlatListPager = <ItemT,>(
     delay: syncIndexDelay,
   } = {...defaultSyncIndexConfig, ...(syncIndexIfChangedProp ?? {})};
 
+  const initialIndex = useInit(() => index);
   const ref = useAnimatedRef<FlatList>();
   const setRefs = useSetRefs(forwardedRef, ref);
   const pageLengthRef = useArgByRef(pageLength);
@@ -136,22 +148,25 @@ const FlatListPager = <ItemT,>(
     syncIndexDelay,
   ]);
 
-  const changeIndex = (i: number) => {
+  const changeIndex = useStableCallback((i: number) => {
     onChangeIndex?.(i);
     syncIndex();
-  };
+  });
 
   const offsetField = horizontal ? 'x' : 'y';
 
-  const onScroll = ({
-    nativeEvent: {contentOffset},
-  }: NativeSyntheticEvent<NativeScrollEvent>) => {
-    offsetRef.current = contentOffset[offsetField];
-    const calcIndex = getCurIndex();
-    if (index !== calcIndex) {
-      changeIndex(calcIndex);
-    }
-  };
+  const onScroll = useCallback(
+    ({
+      nativeEvent: {contentOffset},
+    }: NativeSyntheticEvent<NativeScrollEvent>) => {
+      offsetRef.current = contentOffset[offsetField];
+      const calcIndex = getCurIndex();
+      if (indexRef.current !== calcIndex) {
+        changeIndex(calcIndex);
+      }
+    },
+    [changeIndex, getCurIndex, indexRef, offsetField],
+  );
 
   const getItemLayout = useCallback<
     (
@@ -193,7 +208,7 @@ const FlatListPager = <ItemT,>(
   }, [pageLength]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Animated.FlatList
+    <MemoAnimatedFlatList
       ref={setRefs as any}
       style={style}
       pointerEvents={pointerEvents}
@@ -203,8 +218,8 @@ const FlatListPager = <ItemT,>(
       scrollEventThrottle={16}
       data={data}
       horizontal={horizontal}
-      initialScrollIndex={index}
-      renderScrollComponent={(props) => <GNScrollView {...props} />}
+      initialScrollIndex={initialIndex}
+      renderScrollComponent={renderScrollComponent}
       renderItem={renderPage}
       keyExtractor={keyExtractor}
       showsHorizontalScrollIndicator={false}
