@@ -1,13 +1,11 @@
 import React, {memo, useMemo} from 'react';
 import {
   getYearAndMonthByWeekPageIndex,
-  HeaderMonthRow,
-  HeaderWeekDaysRow,
+  Header as BaseHeader,
   OnMonthChanged,
   OnMonthInitialized,
   useDayState,
   useLocaledDayjs,
-  useMonthEventsEffect,
 } from '@calendars/common';
 import {useMonthPageIndexState} from '@calendars/month';
 import {useWeekPageIndexState} from '@calendars/week';
@@ -45,14 +43,18 @@ const Header = ({
     }
   }, [calendarType, ldayjs, monthPageIndex, selectedDay, weekPageIndex]);
 
-  useMonthEventsEffect(year, month, onMonthInitialized, onMonthChanged);
-
   return (
-    <>
-      {visibleMonthHeader && <HeaderMonthRow year={year} month={month} />}
-      {visibleWeekDaysHeader && <HeaderWeekDaysRow />}
-    </>
+    <BaseHeader
+      year={year}
+      month={month}
+      visibleMonthHeader={visibleMonthHeader}
+      visibleWeekDaysHeader={visibleWeekDaysHeader}
+      onMonthInitialized={onMonthInitialized}
+      onMonthChanged={onMonthChanged}
+    />
   );
 };
+
+Header.displayName = 'Week-Month(Header)';
 
 export default memo(Header);

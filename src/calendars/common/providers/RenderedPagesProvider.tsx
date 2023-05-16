@@ -8,13 +8,14 @@ import React, {
 } from 'react';
 import type dayjs from 'dayjs';
 import {
-  useMemoObject,
-  useStableCallback,
   useIsChanged,
   useIsFirstRender,
+  useMemoObject,
+  useStableCallback,
 } from '@rozhkov/react-useful-hooks';
 import type {FDay} from '@utils/day';
 import {fDay} from '@utils/day';
+import {createRequiredContextValueHook} from '@utils/react-hooks';
 
 export type PageType = 'week' | 'month';
 
@@ -41,17 +42,19 @@ const mapDataToProp = (data: PageData): PageDataProp => ({
   rowCount: data.rowCount,
 });
 
-type RenderedPagesEventsContextValue = {
+type RenderedPagesEventsVal = {
   onPageMounted: (data: PageData) => void;
   onPageChanged: (data: PageData) => void;
   onPageUnmounted: (key: string) => void;
 };
-type RenderedPagesDataContextValue = ReadonlyArray<PageData>;
+type RenderedPagesDataVal = ReadonlyArray<PageData>;
 
-const RenderedPageEventsContext =
-  createContext<RenderedPagesEventsContextValue | null>(null);
-const RenderedPageDataContext =
-  createContext<RenderedPagesDataContextValue | null>(null);
+const RenderedPageEventsContext = createContext<
+  RenderedPagesEventsVal | undefined
+>(undefined);
+const RenderedPageDataContext = createContext<RenderedPagesDataVal | undefined>(
+  undefined,
+);
 
 export type OnPageMounted = (data: PageDataProp) => void;
 export type OnPageUnmounted = (data: PageDataProp) => void;
@@ -96,7 +99,7 @@ const RenderedPagesProvider = ({
     });
   });
 
-  const events = useMemoObject<RenderedPagesEventsContextValue>({
+  const events = useMemoObject<RenderedPagesEventsVal>({
     onPageMounted,
     onPageChanged,
     onPageUnmounted,
@@ -113,7 +116,7 @@ export default RenderedPagesProvider;
 
 export const useRenderedPageData = (type?: PageType) => {
   const value = useContext(RenderedPageDataContext);
-  if (value === null) {
+  if (value === undefined) {
     throw new Error(
       'useRenderedPagesData must be called from within RenderedPagesProvider!',
     );
@@ -123,15 +126,12 @@ export const useRenderedPageData = (type?: PageType) => {
   }
   return value.filter((x) => x.type === type);
 };
-export const useRenderedPageEvents = () => {
-  const value = useContext(RenderedPageEventsContext);
-  if (value === null) {
-    throw new Error(
-      'useRenderedPageEvents must be called from within RenderedPagesProvider!',
-    );
-  }
-  return value;
-};
+
+export const useRenderedPageEvents = createRequiredContextValueHook(
+  RenderedPageEventsContext,
+  'useRenderedPageEvents',
+  'RenderedPagesProvider',
+);
 
 const createPageKey = (type: PageType, arrayIndex: number) =>
   `${type}_${arrayIndex}`;
@@ -144,11 +144,15 @@ export const useRenderedPageRegisterEffect = (
   end: dayjs.Dayjs,
   rowCount: number,
 ) => {
-  if (useIsChanged(type)) {
-    throw new Error('Page type cannot be changed');
-  }
-  if (useIsChanged(arrayIndex)) {
-    throw new Error('Array index cannot be changed');
+  if (__DEV__) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    if (useIsChanged(type)) {
+      throw new Error('Page type cannot be changed');
+    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    if (useIsChanged(arrayIndex)) {
+      throw new Error('Array index cannot be changed');
+    }
   }
   const key = createPageKey(type, arrayIndex);
 

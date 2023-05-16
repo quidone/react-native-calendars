@@ -1,7 +1,7 @@
 import React, {PropsWithChildren, useState} from 'react';
 import {LayoutChangeEvent, View} from 'react-native';
+import CalendarWidthContext from './providers/CalendarWidthContext';
 import {useStyles} from './providers/StylesProvider';
-import CalendarWidthProvider from './providers/CalendarWidthProvider';
 
 type CalendarContainerProps = PropsWithChildren<{
   width: number | undefined;
@@ -24,7 +24,9 @@ const CalendarContainer = ({
   return (
     <View style={[prop.containerStyle, {width: widthProp}]} onLayout={onLayout}>
       {width != null && (
-        <CalendarWidthProvider width={width}>{children}</CalendarWidthProvider>
+        <CalendarWidthContext.Provider value={width}>
+          {children}
+        </CalendarWidthContext.Provider>
       )}
     </View>
   );

@@ -1,13 +1,11 @@
 import React, {memo} from 'react';
 import {
-  HeaderMonthRow,
-  HeaderWeekDaysRow,
+  getYearAndMonthByWeekPageIndex,
+  Header as BaseHeader,
   OnMonthChanged,
   OnMonthInitialized,
   useDayState,
   useLocaledDayjs,
-  useMonthEventsEffect,
-  getYearAndMonthByWeekPageIndex,
 } from '@calendars/common';
 import {useWeekPageIndexState} from '../pager/WeekPagesProvider';
 
@@ -31,14 +29,18 @@ const Header = ({
   const pageDay = ldayjs().year(pageIndexYear).dayOfYear(dayOfYear);
   const {year, month} = getYearAndMonthByWeekPageIndex(pageDay, selectedDay);
 
-  useMonthEventsEffect(year, month, onMonthInitialized, onMonthChanged);
-
   return (
-    <>
-      {visibleMonthHeader && <HeaderMonthRow year={year} month={month} />}
-      {visibleWeekDaysHeader && <HeaderWeekDaysRow />}
-    </>
+    <BaseHeader
+      year={year}
+      month={month}
+      visibleMonthHeader={visibleMonthHeader}
+      visibleWeekDaysHeader={visibleWeekDaysHeader}
+      onMonthInitialized={onMonthInitialized}
+      onMonthChanged={onMonthChanged}
+    />
   );
 };
+
+Header.displayName = 'Week(Header)';
 
 export default memo(Header);

@@ -18,17 +18,13 @@ import type {Day} from '@utils/day';
 type WeekCalendarCoreProps = {
   onPageIndexChanged?: OnPageIndexChanged<WeekPageIndex>;
   pageHeight?: number | GetPageHeight;
-  /**
-   * PageIndex or date in the format 'YYYY-MM-DD'. Default today or firstPage
-   */
-  initPageIndex?: WeekPageIndex | string;
+  initPageIndex?: WeekPageIndex | Day;
   pageStart?: WeekPageIndex | Day;
   pageEnd?: WeekPageIndex | Day;
   visibleMonthHeader?: boolean;
   visibleWeekDaysHeader?: boolean;
   onMonthInitialized?: OnMonthInitialized;
   onMonthChanged?: OnMonthChanged;
-
   calendarWidth?: number;
 };
 
@@ -39,7 +35,6 @@ const WeekCalendarCore = (
     pageStart,
     onPageIndexChanged,
     pageHeight,
-
     calendarWidth,
     visibleMonthHeader = true,
     visibleWeekDaysHeader = true,

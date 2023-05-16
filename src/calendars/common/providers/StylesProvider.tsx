@@ -1,7 +1,7 @@
 import React, {
   createContext,
   PropsWithChildren,
-  useContext,
+  useCallback,
   useMemo,
 } from 'react';
 import {StyleProp, StyleSheet, TextStyle, ViewStyle} from 'react-native';
@@ -14,6 +14,7 @@ import {
   TimingAnimConfig,
   useTheme,
 } from './ThemeProvider';
+import {createRequiredContextValueHook} from '@utils/react-hooks';
 
 type CalendarBaseStaticStyles = {
   monthHeaderRowStyle: ViewStyle;
@@ -97,12 +98,8 @@ const buildStaticStyles = ({
       // initialize values
       backgroundColor: getThemePropValue(dayBgColor),
     },
-    daySecondaryContainerStyle: {
-      opacity: 0.4,
-    },
-    dayDisabledContainerStyle: {
-      opacity: 0.4,
-    },
+    daySecondaryContainerStyle: {opacity: 0.4},
+    dayDisabledContainerStyle: {opacity: 0.4},
     dayTitleStyle: {
       fontSize: dayFontSize,
       // initialize values
@@ -123,13 +120,16 @@ const buildStaticStyles = ({
   });
 };
 
+type DayContainerAnimatedStyle = (
+  isSelected: boolean,
+) => Animated.AnimateStyle<ViewStyle>;
+type DayTitleAnimatedStyle = (
+  isSelected: boolean,
+) => Animated.AnimateStyle<TextStyle>;
+
 type CalendarBaseAnimatedStyles = {
-  dayContainerAnimatedStyle: (
-    isSelected: boolean,
-  ) => Animated.AnimateStyle<ViewStyle>;
-  dayTitleAnimatedStyle: (
-    isSelected: boolean,
-  ) => Animated.AnimateStyle<ViewStyle>;
+  dayContainerAnimatedStyle: DayContainerAnimatedStyle;
+  dayTitleAnimatedStyle: DayTitleAnimatedStyle;
 };
 
 const isTimingConfig = <ValueT extends string | number>(
@@ -143,18 +143,6 @@ const isSpringConfig = <ValueT extends string | number>(
 ): prop is SpringAnimConfig<ValueT> => {
   'worklet';
   return typeof prop === 'object' && prop.type === 'spring';
-};
-const getStaticOrTiming = <ValueT extends string | number>(
-  prop: ValueT | TimingAnimConfig<ValueT>,
-) => {
-  'worklet';
-  return isTimingConfig(prop) ? withTiming(prop.value, prop.option) : prop;
-};
-const getStaticOrSpring = <ValueT extends string | number>(
-  prop: ValueT | SpringAnimConfig<ValueT>,
-) => {
-  'worklet';
-  return isSpringConfig(prop) ? withSpring(prop.value, prop.option) : prop;
 };
 const getStaticOrAnimate = <ValueT extends string | number>(
   prop: ValueT | AnimConfig<ValueT>,
@@ -175,87 +163,27 @@ const useCalendarBaseAnimatedStyles = ({
   dayColor,
   daySelectedColor,
 }: CalendarTheme): CalendarBaseAnimatedStyles => {
-  const dayContainerAnimatedStyle = useMemo<
-    (isSelected: boolean) => Animated.AnimateStyle<ViewStyle>
-  >(() => {
-    const hasTiming =
-      isTimingConfig(dayBgColor) || isTimingConfig(daySelectedBgColor);
-    const hasSpring =
-      isSpringConfig(dayBgColor) || isSpringConfig(daySelectedBgColor);
-    if (!hasTiming && !hasSpring) {
-      return (isSelected) => {
-        'worklet';
-        return {
-          backgroundColor: isSelected ? daySelectedBgColor : dayBgColor,
-        };
+  const dayContainerAnimatedStyle = useCallback<DayContainerAnimatedStyle>(
+    (isSelected) => {
+      'worklet';
+      return {
+        backgroundColor: getStaticOrAnimate(
+          isSelected ? daySelectedBgColor : dayBgColor,
+        ),
       };
-    } else if (hasTiming && !hasSpring) {
-      return (isSelected) => {
-        'worklet';
-        return {
-          backgroundColor: getStaticOrTiming(
-            isSelected ? daySelectedBgColor : dayBgColor,
-          ),
-        };
-      };
-    } else if (!hasTiming && hasSpring) {
-      return (isSelected) => {
-        'worklet';
-        return {
-          backgroundColor: getStaticOrSpring(
-            isSelected ? daySelectedBgColor : dayBgColor,
-          ),
-        };
-      };
-    } else {
-      return (isSelected) => {
-        'worklet';
-        return {
-          backgroundColor: getStaticOrAnimate(
-            isSelected ? daySelectedBgColor : dayBgColor,
-          ),
-        };
-      };
-    }
-  }, [dayBgColor, daySelectedBgColor]);
+    },
+    [dayBgColor, daySelectedBgColor],
+  );
 
-  const dayTitleAnimatedStyle = useMemo<
-    (isSelected: boolean) => Animated.AnimateStyle<TextStyle>
-  >(() => {
-    const hasTiming =
-      isTimingConfig(dayColor) || isTimingConfig(daySelectedColor);
-    const hasSpring =
-      isSpringConfig(dayColor) || isSpringConfig(daySelectedColor);
-    if (!hasTiming && !hasSpring) {
-      return (isSelected) => {
-        'worklet';
-        return {
-          color: isSelected ? daySelectedColor : dayColor,
-        };
+  const dayTitleAnimatedStyle = useCallback<DayTitleAnimatedStyle>(
+    (isSelected) => {
+      'worklet';
+      return {
+        color: getStaticOrAnimate(isSelected ? daySelectedColor : dayColor),
       };
-    } else if (hasTiming && !hasSpring) {
-      return (isSelected) => {
-        'worklet';
-        return {
-          color: getStaticOrTiming(isSelected ? daySelectedColor : dayColor),
-        };
-      };
-    } else if (!hasTiming && hasSpring) {
-      return (isSelected) => {
-        'worklet';
-        return {
-          color: getStaticOrSpring(isSelected ? daySelectedColor : dayColor),
-        };
-      };
-    } else {
-      return (isSelected) => {
-        'worklet';
-        return {
-          color: getStaticOrAnimate(isSelected ? daySelectedColor : dayColor),
-        };
-      };
-    }
-  }, [dayColor, daySelectedColor]);
+    },
+    [dayColor, daySelectedColor],
+  );
 
   return useMemoObject<CalendarBaseAnimatedStyles>({
     dayContainerAnimatedStyle,
@@ -297,7 +225,7 @@ type StylesContextValue = {
   prop: CalendarStyles;
 };
 
-const StylesContext = createContext<StylesContextValue | null>(null);
+const StylesContext = createContext<StylesContextValue | undefined>(undefined);
 
 type StylesProviderProps = PropsWithChildren<CalendarStyles>;
 
@@ -321,10 +249,8 @@ const StylesProvider = ({children, ...restProps}: StylesProviderProps) => {
 
 export default StylesProvider;
 
-export const useStyles = () => {
-  const value = useContext(StylesContext);
-  if (value == null) {
-    throw new Error('useStyles must be called from within StylesProvider!');
-  }
-  return value;
-};
+export const useStyles = createRequiredContextValueHook(
+  StylesContext,
+  'useStyles',
+  'StylesProvider',
+);

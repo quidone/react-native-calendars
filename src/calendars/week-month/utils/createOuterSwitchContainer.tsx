@@ -108,7 +108,6 @@ const createOuterSwitchContainer = <PropsT,>(
     const scrollRef = useAnimatedRef();
     const panRef = useRef();
     const setScrollRefs = useSetRefs(scrollRef, forwardedRef);
-
     const payload = useConnectionPayload(calendarRef);
     const isScrolledStart = useIsScrolledStart(scrollRef);
 
@@ -185,7 +184,6 @@ const createOuterSwitchContainer = <PropsT,>(
     );
   };
 
-  // @ts-ignore
   return forwardRef(WMOuterSwitchContainer) as ComponentType<
     WrappedScrollViewProps<PropsT>
   >;

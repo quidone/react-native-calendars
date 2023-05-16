@@ -2,14 +2,12 @@ import './dayjs-extensions';
 
 export {default as CalendarContainer} from './Calendar.Container';
 
-export {default as HeaderMonthRow} from './header/Header.MonthRow';
-export {default as HeaderWeekDaysRow} from './header/Header.WeekDaysRow';
+export {default as Header} from './header/Header';
 export {getYearAndMonthByWeekPageIndex} from './header/utils';
 export type {
   OnMonthChanged,
   OnMonthInitialized,
 } from './header/useMonthEventsEffect';
-export {default as useMonthEventsEffect} from './header/useMonthEventsEffect';
 
 import type {CalendarTheme} from './providers/ThemeProvider';
 export type PartialCalendarTheme = Partial<CalendarTheme>;
@@ -45,7 +43,7 @@ export type {LDayjs, Locale} from './providers/LocaleProvider';
 export {useLocaledDayjs} from './providers/LocaleProvider';
 export {useDayState, OnDayPress, OnDayChanged} from './providers/DayProvider';
 export {CalendarMethods} from './providers/MethodsProvider';
-export {useCalendarWidth} from './providers/CalendarWidthProvider';
+export {useCalendarWidth} from './providers/CalendarWidthContext';
 
 export type {
   MarkedDays,

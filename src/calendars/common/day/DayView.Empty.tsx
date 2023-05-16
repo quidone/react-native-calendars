@@ -9,15 +9,20 @@ type DayViewEmptyProps = {
   isSecondary: boolean;
 };
 
-const DayViewEmpty = ({isSecondary}: DayViewEmptyProps) => {
+const DayViewEmpty = ({
+  isSecondary,
+  isSelected,
+  isToday,
+  isDisabled,
+}: DayViewEmptyProps) => {
   const {base, prop} = useStyles();
 
   const style =
     typeof prop.dayContainerStyle === 'function'
       ? prop.dayContainerStyle({
-          isToday: false,
-          isDisabled: false,
-          isSelected: false,
+          isToday,
+          isDisabled,
+          isSelected,
           isSecondary,
         })
       : prop.dayContainerStyle;

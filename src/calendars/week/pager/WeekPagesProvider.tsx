@@ -20,21 +20,16 @@ import {
 } from '@rozhkov/react-useful-hooks';
 import {createRequiredContextValueHook} from '@utils/react-hooks';
 
-export type WeekPagesInfoContextValue = {
+type PagesInfoVal = {
   indexes: ReadonlyArray<WeekPageIndex>;
   indexProgress: SharedValue<number>;
 };
-export type WeekPageIndexStateContextValue = [
-  WeekPageIndex,
-  (index: WeekPageIndex) => void,
-];
+type PageIndexStateVal = [WeekPageIndex, (index: WeekPageIndex) => void];
 
-const WeekPagesInfoContext = createContext<
-  WeekPagesInfoContextValue | undefined
->(undefined);
-const WeekPageIndexStateContext = createContext<
-  WeekPageIndexStateContextValue | undefined
->(undefined);
+const PagesInfoContext = createContext<PagesInfoVal | undefined>(undefined);
+const WeekPageIndexStateContext = createContext<PageIndexStateVal | undefined>(
+  undefined,
+);
 
 type WeekPagesProviderProps = PropsWithChildren<{
   pageStart: WeekPageIndex | dayjs.Dayjs | string | undefined;
@@ -73,28 +68,25 @@ const WeekPagesProvider = ({
     useInit(() => getWeekPageIndexNumber(indexes, index)),
   );
 
-  const infoResult = useMemoObject<WeekPagesInfoContextValue>({
+  const infoResult = useMemoObject<PagesInfoVal>({
     indexes,
     indexProgress,
   });
-  const stateResult = useMemoArray<WeekPageIndexStateContextValue>([
-    index,
-    changeIndex,
-  ]);
+  const stateResult = useMemoArray<PageIndexStateVal>([index, changeIndex]);
 
   return (
-    <WeekPagesInfoContext.Provider value={infoResult}>
+    <PagesInfoContext.Provider value={infoResult}>
       <WeekPageIndexStateContext.Provider value={stateResult}>
         {children}
       </WeekPageIndexStateContext.Provider>
-    </WeekPagesInfoContext.Provider>
+    </PagesInfoContext.Provider>
   );
 };
 
 export default WeekPagesProvider;
 
 export const useWeekPagesInfo = createRequiredContextValueHook(
-  WeekPagesInfoContext,
+  PagesInfoContext,
   'useWeekPagesInfoState',
   'WeekPagesProvider',
 );

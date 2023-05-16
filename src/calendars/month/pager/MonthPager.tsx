@@ -32,6 +32,8 @@ import {
   useMemoAnimatedStyle,
 } from '@utils/react-native-reanimated';
 
+const keyExtractor = (_: any, index: number) => index.toString();
+
 export type MonthPagerProps = {
   pageHeight: number | GetPageHeight | undefined;
   style?: StyleProp<Animated.AnimateStyle<StyleProp<ViewStyle>>>;
@@ -113,9 +115,9 @@ const MonthPager = (
 
   return (
     <FlatListPager<MonthPageIndex>
-      // @ts-ignore
       ref={pagerRef}
       data={indexes}
+      keyExtractor={keyExtractor}
       style={styleResult}
       index={curIndex}
       indexProgressSv={indexProgressSv}

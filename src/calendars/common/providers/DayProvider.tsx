@@ -16,26 +16,14 @@ import {Day, fDay, FDay, setNoon} from '@utils/day';
 export type OnDayChanged = (event: {day: FDay}) => void;
 export type OnDayPress = (event: {day: FDay; selectedDay: FDay | null}) => void;
 
-type DayRangeContextValue = {
-  dayMin: dayjs.Dayjs | null;
-  dayMax: dayjs.Dayjs | null;
-};
-const DayRangeContext = createContext<DayRangeContextValue | undefined>(
-  undefined,
-);
+type DayRangeVal = {dayMin: dayjs.Dayjs | null; dayMax: dayjs.Dayjs | null};
+const DayRangeContext = createContext<DayRangeVal | undefined>(undefined);
 
-type DayStateContextValue = [dayjs.Dayjs | null, (day: dayjs.Dayjs) => void];
-const DayStateContext = createContext<DayStateContextValue | undefined>(
-  undefined,
-);
+type DayStateVal = [dayjs.Dayjs | null, (day: dayjs.Dayjs) => void];
+const DayStateContext = createContext<DayStateVal | undefined>(undefined);
 
-type OnDayPressContextValue = (event: {
-  day: dayjs.Dayjs;
-  isDisabled: boolean;
-}) => void;
-const OnDayPressContext = createContext<OnDayPressContextValue | undefined>(
-  undefined,
-);
+type OnDayPressVal = (event: {day: dayjs.Dayjs; isDisabled: boolean}) => void;
+const OnDayPressContext = createContext<OnDayPressVal | undefined>(undefined);
 
 type DayProviderProps = PropsWithChildren<{
   dayMin: FDay | string | undefined;
@@ -90,17 +78,17 @@ const DayProvider = ({
     }
   }, [isDayPropSet, selectedDayProp]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const stateResult = useMemoArray<DayStateContextValue>([
+  const stateResult = useMemoArray<DayStateVal>([
     isDayPropSet ? selectedDayPropObj : selectedDay,
     changeDay,
   ]);
-  const rangeResult = useMemo<DayRangeContextValue>(() => {
+  const rangeResult = useMemo<DayRangeVal>(() => {
     return {
       dayMin: dayMin !== undefined ? dayjs.utc(dayMin).startOf('day') : null,
       dayMax: dayMax !== undefined ? dayjs.utc(dayMax).endOf('day') : null,
     };
   }, [dayMax, dayMin]);
-  const onDayPressResult = useStableCallback<OnDayPressContextValue>(
+  const onDayPressResult = useStableCallback<OnDayPressVal>(
     ({day, isDisabled}) => {
       if (onDayPressProp !== undefined) {
         const selDay = selectedDayRef.current;

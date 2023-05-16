@@ -4,11 +4,9 @@ import {useLocale} from '../providers/LocaleProvider';
 import {useStyles} from '../providers/StylesProvider';
 import {getSortedWeekDayNames} from './utils';
 
-type WeekDayProp = {
-  title: string;
-};
+type WeekDayProp = {title: string};
 
-const WeekDay = ({title}: WeekDayProp) => {
+const WeekDay = memo(({title}: WeekDayProp) => {
   const {base, prop} = useStyles();
 
   return (
@@ -18,7 +16,7 @@ const WeekDay = ({title}: WeekDayProp) => {
       </Text>
     </View>
   );
-};
+});
 
 WeekDay.displayName = 'Header.WeekDay';
 

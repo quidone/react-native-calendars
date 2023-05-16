@@ -232,4 +232,8 @@ const FlatListPager = <ItemT,>(
   );
 };
 
-export default memo(forwardRef(FlatListPager)) as typeof FlatListPager;
+type ResultComponentType = <ItemT>(
+  p: FlatListPagerProps<ItemT> & React.RefAttributes<FlatList<ItemT>>,
+) => React.ReactElement;
+
+export default memo(forwardRef(FlatListPager)) as ResultComponentType;

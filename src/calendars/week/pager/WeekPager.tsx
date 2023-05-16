@@ -32,6 +32,8 @@ import {
   useMemoAnimatedStyle,
 } from '@utils/react-native-reanimated';
 
+const keyExtractor = (_: any, index: number) => index.toString();
+
 export type WeekPagerProps = {
   pageHeight: number | GetPageHeight | undefined;
   style?: StyleProp<Animated.AnimateStyle<StyleProp<ViewStyle>>>;
@@ -112,10 +114,10 @@ const WeekPager = (
 
   return (
     <FlatListPager<WeekPageIndex>
-      // @ts-ignore
       ref={pagerRef}
       style={styleResult}
       data={indexes}
+      keyExtractor={keyExtractor}
       index={curIndex}
       onChangeIndex={changeIndex}
       syncIndexIfChanged={syncIndexIfChanged}

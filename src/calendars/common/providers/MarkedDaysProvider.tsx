@@ -141,15 +141,13 @@ const getMarkedDaysSelectorOrDefault = (
   }
 };
 
-type MarkedDaysContextValue = {
+type MarkedDaysVal = {
   // staticMarks and dynamicMarks are superficially updated every time
   staticMarks: UnifiedMarkedDays | null;
   dynamicMarks: UnifiedMarkedDays | null;
 };
 
-const MarkedDaysContext = createContext<MarkedDaysContextValue | undefined>(
-  undefined,
-);
+const MarkedDaysContext = createContext<MarkedDaysVal | undefined>(undefined);
 
 type MarkedDaysProviderProps = PropsWithChildren<{
   markedDays: MarkedDays | undefined;
@@ -213,7 +211,7 @@ const MarkedDaysProvider = ({
   markedDays,
   children,
 }: MarkedDaysProviderProps) => {
-  const result = useMemoObject<MarkedDaysContextValue>({
+  const result = useMemoObject<MarkedDaysVal>({
     staticMarks: useStaticMarks(markedDays),
     dynamicMarks: useDynamicMarks(markedDays),
   });

@@ -4,10 +4,7 @@ import {useLocale} from '../providers/LocaleProvider';
 import {useStyles} from '../providers/StylesProvider';
 import {toUpperFirstCase} from '@utils/string';
 
-export type HeaderMonthRowProps = {
-  year: number;
-  month: number;
-};
+export type HeaderMonthRowProps = {year: number; month: number};
 
 const HeaderMonthRow = ({year, month}: HeaderMonthRowProps) => {
   const {months} = useLocale();

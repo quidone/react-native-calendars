@@ -1,22 +1,18 @@
-import React, {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useMemo,
-} from 'react';
+import React, {createContext, PropsWithChildren, useMemo} from 'react';
 import dayjs, {ConfigType} from 'dayjs';
+import {createRequiredContextValueHook} from '@utils/react-hooks';
 
 type DayjsLocale = string | ILocale;
 export type Locale = DayjsLocale;
 
-type LocaleContextValue = {
+type LocaleVal = {
   localedDayjs: (config?: ConfigType) => dayjs.Dayjs;
   weekDays: string[];
   months: string[];
   weekStart: number;
 };
 
-const LocaleContext = createContext<LocaleContextValue | null>(null);
+const LocaleContext = createContext<LocaleVal | undefined>(undefined);
 
 type LocaleProviderProps = PropsWithChildren<{
   locale: Locale | undefined;
@@ -28,7 +24,7 @@ const LocaleProvider = ({locale, children}: LocaleProviderProps) => {
       ? (config?: ConfigType) => dayjs(config).locale(locale)
       : dayjs;
   }, [locale]);
-  const result = useMemo<LocaleContextValue>(() => {
+  const result = useMemo<LocaleVal>(() => {
     const localeData = localedDayjs().localeData();
     return {
       localedDayjs,
@@ -43,13 +39,11 @@ const LocaleProvider = ({locale, children}: LocaleProviderProps) => {
 
 export default LocaleProvider;
 
-export const useLocale = () => {
-  const value = useContext(LocaleContext);
-  if (value == null) {
-    throw new Error('useLocale must be called from within LocaleProvider!');
-  }
-  return value;
-};
+export const useLocale = createRequiredContextValueHook(
+  LocaleContext,
+  'useLocale',
+  'LocaleProvider',
+);
 
 export const useLocaledDayjs = () => {
   return useLocale().localedDayjs;

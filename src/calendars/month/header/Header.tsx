@@ -1,12 +1,10 @@
 import {
-  HeaderMonthRow,
-  HeaderWeekDaysRow,
+  Header as BaseHeader,
   OnMonthChanged,
   OnMonthInitialized,
 } from '@calendars/common';
 import React, {memo} from 'react';
 import {useMonthPageIndexState} from '../pager/MonthPagesProvider';
-import {useMonthEventsEffect} from '@calendars/common';
 
 type HeaderProps = {
   visibleMonthHeader: boolean;
@@ -23,14 +21,18 @@ const Header = ({
 }: HeaderProps) => {
   const [{year, month}] = useMonthPageIndexState();
 
-  useMonthEventsEffect(year, month, onMonthInitialized, onMonthChanged);
-
   return (
-    <>
-      {visibleMonthHeader && <HeaderMonthRow year={year} month={month} />}
-      {visibleWeekDaysHeader && <HeaderWeekDaysRow />}
-    </>
+    <BaseHeader
+      year={year}
+      month={month}
+      visibleMonthHeader={visibleMonthHeader}
+      visibleWeekDaysHeader={visibleWeekDaysHeader}
+      onMonthInitialized={onMonthInitialized}
+      onMonthChanged={onMonthChanged}
+    />
   );
 };
+
+Header.displayName = 'Month(Header)';
 
 export default memo(Header);

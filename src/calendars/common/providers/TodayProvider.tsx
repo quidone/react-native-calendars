@@ -1,7 +1,6 @@
 import React, {
   createContext,
   PropsWithChildren,
-  useContext,
   useEffect,
   useMemo,
 } from 'react';
@@ -9,10 +8,11 @@ import type dayjs from 'dayjs';
 import {useLocaledDayjs} from './LocaleProvider';
 import {useInit, useStateRef} from '@rozhkov/react-useful-hooks';
 import {setNoon} from '@utils/day';
+import {createRequiredContextValueHook} from '@utils/react-hooks';
 
-type TodayContextValue = dayjs.Dayjs;
+type TodayVal = dayjs.Dayjs;
 
-const TodayContext = createContext<TodayContextValue | null>(null);
+const TodayContext = createContext<TodayVal | undefined>(undefined);
 
 type TodayProviderProps = PropsWithChildren<{}>;
 
@@ -42,13 +42,11 @@ const TodayProvider = (props: TodayProviderProps) => {
 
 export default TodayProvider;
 
-export const useToday = (): TodayContextValue => {
-  const value = useContext(TodayContext);
-  if (value == null) {
-    throw new Error('useToday must be called from within TodayProvider!');
-  }
-  return value;
-};
+export const useToday = createRequiredContextValueHook(
+  TodayContext,
+  'useToday',
+  'TodayProvider',
+);
 
 export const useIsDayToday = (day: dayjs.Dayjs): boolean => {
   const today = useToday();

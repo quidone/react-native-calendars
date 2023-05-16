@@ -15,7 +15,7 @@ const useRefInstanceLifeCycleEffect = <T>(
   const onStableAttached = useStableCallback(onAttached);
   const onStableUnattached = useStableCallback(onUnattached);
   const onStableStopListening = useStableCallback(onStopListening);
-  const doWork = useCallback(() => {
+  const tick = useCallback(() => {
     const prevInstance = prevInstanceRef.current;
     const curInstance = ref.current;
     if (prevInstance == null && curInstance != null) {
@@ -34,8 +34,8 @@ const useRefInstanceLifeCycleEffect = <T>(
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    doWork();
-    const intervalId = setInterval(doWork, 1000);
+    tick();
+    const intervalId = setInterval(tick, 1000);
     return () => {
       clearInterval(intervalId);
       onStableStopListening(prevInstanceRef.current ?? null);

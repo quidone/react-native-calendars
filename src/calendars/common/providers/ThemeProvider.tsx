@@ -1,17 +1,19 @@
-import React, {createContext, PropsWithChildren, useContext} from 'react';
-import type {WithSpringConfig, WithTimingConfig} from 'react-native-reanimated';
-import {useMemoObject} from '@rozhkov/react-useful-hooks';
+import React, {createContext, PropsWithChildren, useMemo} from 'react';
+import type {
+  TimingAnimConfig as TimingAnimConfigOrigin,
+  SpringAnimConfig as SpringAnimConfigOrigin,
+} from '@utils/react-native-reanimated';
+import {createRequiredContextValueHook} from '@utils/react-hooks';
 
-export type TimingAnimConfig<ValueT> = {
-  type: 'timing';
-  value: ValueT;
-  option?: WithTimingConfig;
-};
-export type SpringAnimConfig<ValueT> = {
-  type: 'spring';
-  value: ValueT;
-  option?: WithSpringConfig;
-};
+type WithVal<
+  V,
+  ConfigT extends TimingAnimConfigOrigin | SpringAnimConfigOrigin,
+> = {
+  value: V;
+} & ConfigT;
+
+export type TimingAnimConfig<ValueT> = WithVal<ValueT, TimingAnimConfigOrigin>;
+export type SpringAnimConfig<ValueT> = WithVal<ValueT, SpringAnimConfigOrigin>;
 
 export type AnimConfig<ValueT> =
   | TimingAnimConfig<ValueT>
@@ -75,7 +77,7 @@ const defaultTheme: CalendarTheme = {
   dayDotSize: 5,
 } as const;
 
-const ThemeContext = createContext<CalendarTheme | null>(null);
+const ThemeContext = createContext<CalendarTheme | undefined>(undefined);
 
 type ThemeProviderProps = PropsWithChildren<{
   theme: Partial<CalendarTheme> | undefined;
@@ -84,21 +86,21 @@ type ThemeProviderProps = PropsWithChildren<{
 const ThemeProvider = (props: ThemeProviderProps) => {
   const {theme, children} = props;
 
-  const result = useMemoObject<CalendarTheme>({
-    ...defaultTheme,
-    ...(theme ?? {}),
-  });
+  const result = useMemo<CalendarTheme>(
+    () => ({
+      ...defaultTheme,
+      ...(theme ?? {}),
+    }),
+    [theme],
+  );
 
   return <ThemeContext.Provider value={result} children={children} />;
 };
 
 export default ThemeProvider;
 
-export const useTheme = () => {
-  const value = useContext(ThemeContext);
-  if (value == null) {
-    throw new Error('useTheme must be called from within ThemeProvider!');
-  }
-
-  return value;
-};
+export const useTheme = createRequiredContextValueHook(
+  ThemeContext,
+  'useTheme',
+  'ThemeProvider',
+);

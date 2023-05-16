@@ -1,12 +1,8 @@
-import React, {
-  createContext,
-  memo,
-  PropsWithChildren,
-  useContext,
-  useMemo,
-} from 'react';
+import React, {createContext, memo, PropsWithChildren} from 'react';
 import type dayjs from 'dayjs';
 import type {PageIndex} from '../types';
+import {useMemoObject} from '@rozhkov/react-useful-hooks';
+import {createRequiredContextValueHook} from '@utils/react-hooks';
 
 export type RenderDay = (data: {
   isSecondary: boolean;
@@ -22,13 +18,13 @@ export type RenderMonthTitleHeader = (data: {
   pageIndex: PageIndex;
 }) => React.ReactNode;
 
-type CustomRendersContextValue = {
+type CustomRendersVal = {
   renderDay: RenderDay | undefined;
   renderMonthTitleHeader: RenderMonthTitleHeader | undefined;
 };
 
-const CustomRendersContext = createContext<CustomRendersContextValue | null>(
-  null,
+const CustomRendersContext = createContext<CustomRendersVal | undefined>(
+  undefined,
 );
 
 type CustomRendersProviderProps = PropsWithChildren<{
@@ -39,26 +35,18 @@ type CustomRendersProviderProps = PropsWithChildren<{
 const CustomRendersProvider = (props: CustomRendersProviderProps) => {
   const {renderMonthTitleHeader, renderDay, children} = props;
 
-  const result = useMemo(
-    () => ({
-      renderDay,
-      renderMonthTitleHeader,
-    }),
-    [renderDay, renderMonthTitleHeader],
-  );
+  const result = useMemoObject<CustomRendersVal>({
+    renderDay,
+    renderMonthTitleHeader,
+  });
 
   return <CustomRendersContext.Provider value={result} children={children} />;
 };
 
 export default memo(CustomRendersProvider);
 
-export const useCustomRenders = (): CustomRendersContextValue => {
-  const value = useContext(CustomRendersContext);
-  if (value == null) {
-    throw new Error(
-      'useCustomRenders must be called from within CustomRendersProvider!',
-    );
-  }
-
-  return value;
-};
+export const useCustomRenders = createRequiredContextValueHook(
+  CustomRendersContext,
+  'useCustomRenders',
+  'CustomRendersProvider',
+);

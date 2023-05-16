@@ -52,7 +52,6 @@ const useWMCalendarRef = (
     monthPagerHeightSv,
     setTypeProgressEnd,
   });
-
   const payloadRef = useArgByRef(payload);
 
   useEffect(() => {

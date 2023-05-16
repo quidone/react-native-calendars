@@ -6,15 +6,16 @@ import {
   WithTimingConfig,
 } from 'react-native-reanimated';
 
-export type AnimConfig =
-  | {
-      type: 'timing';
-      option?: WithTimingConfig;
-    }
-  | {
-      type: 'spring';
-      option?: WithSpringConfig;
-    };
+export type TimingAnimConfig = {
+  type: 'timing';
+  option?: WithTimingConfig;
+};
+export type SpringAnimConfig = {
+  type: 'spring';
+  option?: WithSpringConfig;
+};
+
+export type AnimConfig = TimingAnimConfig | SpringAnimConfig;
 
 export const withAnim = <T extends number>(
   value: T,

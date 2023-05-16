@@ -1,15 +1,16 @@
-import React, {memo, useMemo} from 'react';
+import React, {memo} from 'react';
 import useWeekRowData from './useWeekRowData';
+import type {GetPageHeight, WeekPageIndex} from '@calendars/common';
 import {
+  FIRST_DAY_OF_WEEK_INDEX,
+  getDefaultPageHeight,
+  LAST_DAY_OF_WEEK_INDEX,
+  PageView,
   useCalendarWidth,
   useRenderedPageRegisterEffect,
-  FIRST_DAY_OF_WEEK_INDEX,
-  LAST_DAY_OF_WEEK_INDEX,
-  getDefaultPageHeight,
   useTheme,
-  PageView,
 } from '@calendars/common';
-import type {GetPageHeight, WeekPageIndex} from '@calendars/common';
+import {useMemoArray} from '@rozhkov/react-useful-hooks';
 
 const ROW_COUNT = 1;
 const MAX_ROW_COUNT = 1;
@@ -47,7 +48,7 @@ const WeekPage = ({
     ROW_COUNT,
   );
 
-  const rows = useMemo(() => [days], [days]);
+  const rows = useMemoArray([days]);
 
   return (
     <PageView
