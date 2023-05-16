@@ -22,9 +22,7 @@ const CalendarContainer = ({
   const {prop} = useStyles();
 
   return (
-    <View
-      style={[prop.calendarContainerStyle, {width: widthProp}]}
-      onLayout={onLayout}>
+    <View style={[prop.containerStyle, {width: widthProp}]} onLayout={onLayout}>
       {width != null && (
         <CalendarWidthProvider width={width}>{children}</CalendarWidthProvider>
       )}

@@ -278,7 +278,7 @@ export type DayTextStyleFn = (info: {
   isSecondary: boolean;
 }) => StyleProp<TextStyle> | undefined;
 export type CalendarStyles = {
-  calendarContainerStyle: StyleProp<ViewStyle> | undefined;
+  containerStyle: StyleProp<ViewStyle> | undefined;
   monthHeaderRowStyle: StyleProp<ViewStyle> | undefined;
   monthHeaderTitleStyle: StyleProp<TextStyle> | undefined;
   weekDaysContainerStyle: StyleProp<ViewStyle> | undefined;
