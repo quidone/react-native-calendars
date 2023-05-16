@@ -19,7 +19,7 @@ const AnimatedStylesController = ({
   children,
 }: AnimatedStylesControllerProps) => {
   const {base} = useStyles();
-  // TODO [translate] сначала нам необходимо инициализировать стили без выделения, после этого запустить анимацию при выделении.
+  // first we need to initialize the styles without selecting, then start the animation when selecting.
   const isSelectedSv = useSharedValue(false);
   const dayContainerStyle = useAnimatedStyle(() => {
     return base.dayContainerAnimatedStyle(isSelectedSv.value);
@@ -46,7 +46,7 @@ const EmptyStylesController = ({children}: EmptyStylesControllerProps) => {
 type LazyAnimatedStylesControllerProps = AnimatedStylesControllerProps &
   EmptyStylesControllerProps;
 
-// TODO [translate] Этот контроллер позволяет не инициализировать сразу анимированные стили, что позволяет ускорить рендеринг.
+// This controller allows you not to initialize animated styles immediately, which allows you to speed up rendering.
 const LazyAnimatedStylesController = ({
   isSelected,
   children,
