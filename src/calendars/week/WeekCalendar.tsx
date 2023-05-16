@@ -8,7 +8,7 @@ import {
   baseProviders,
   BaseCalendarProps,
   CalendarContainer,
-  OnChangePageIndex,
+  OnPageIndexChanged,
 } from '@calendars/common';
 import Header from './header/Header';
 import WeekPager from './pager/WeekPager';
@@ -16,7 +16,7 @@ import WeekPagesProvider from './pager/WeekPagesProvider';
 import type {Day} from '@utils/day';
 
 type WeekCalendarCoreProps = {
-  onChangePage?: OnChangePageIndex<WeekPageIndex>;
+  onPageIndexChanged?: OnPageIndexChanged<WeekPageIndex>;
   pageHeight?: number | GetPageHeight;
   /**
    * PageIndex or date in the format 'YYYY-MM-DD'. Default today or firstPage
@@ -37,7 +37,7 @@ const WeekCalendarCore = (
     initPageIndex,
     pageEnd,
     pageStart,
-    onChangePage,
+    onPageIndexChanged,
     pageHeight,
 
     calendarWidth,
@@ -52,7 +52,7 @@ const WeekCalendarCore = (
     <WeekPagesProvider
       pageStart={pageStart}
       pageEnd={pageEnd}
-      onChangePageIndex={onChangePage}
+      onPageIndexChanged={onPageIndexChanged}
       initPageIndex={initPageIndex}>
       <CalendarContainer width={calendarWidth}>
         <Header

@@ -1,10 +1,10 @@
 import {
   MonthPageIndex,
-  OnChangePageIndex,
+  OnPageIndexChanged,
   useDayState,
+  useLocaledDayjs,
 } from '@calendars/common';
 import {useCallback, useEffect} from 'react';
-import {useLocaledDayjs} from '@calendars/common';
 import {
   useInit,
   useIsFirstRender,
@@ -14,7 +14,7 @@ import {
 
 const useMonthPageIndexState = (
   initPageIndexProp: MonthPageIndex | string | undefined,
-  onChangePageProp: OnChangePageIndex<MonthPageIndex> | undefined,
+  onPageChangedProp: OnPageIndexChanged<MonthPageIndex> | undefined,
 ) => {
   const ldayjs = useLocaledDayjs();
   const [selectedDay] = useDayState();
@@ -47,16 +47,16 @@ const useMonthPageIndexState = (
     }),
   );
 
-  const onChangePage = useStableCallback(onChangePageProp);
+  const onPageChanged = useStableCallback(onPageChangedProp);
   const changePageIndex = useCallback(
     (index: MonthPageIndex) => {
       const curIndex = pageIndexRef.current;
       if (curIndex.month !== index.month || curIndex.year !== index.year) {
-        onChangePage?.({value: index});
+        onPageChanged?.({value: index});
         setPageIndex(index);
       }
     },
-    [onChangePage, pageIndexRef, setPageIndex],
+    [onPageChanged, pageIndexRef, setPageIndex],
   );
 
   useEffect(() => {

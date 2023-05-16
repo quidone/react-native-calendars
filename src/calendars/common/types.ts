@@ -22,5 +22,5 @@ export type GetPageHeight = (info: {
   maxRowCount: number;
 }) => number;
 
-export type OnChangePageIndex<T extends WeekPageIndex | MonthPageIndex> =
+export type OnPageIndexChanged<T extends WeekPageIndex | MonthPageIndex> =
   (event: {value: T}) => void;

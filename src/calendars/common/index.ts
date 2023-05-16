@@ -61,7 +61,7 @@ export type {
 export {useDots} from './dot/DotsContext';
 
 export {
-  OnChangePageIndex,
+  OnPageIndexChanged,
   WeekPageIndex,
   MonthPageIndex,
   GetPageHeight,

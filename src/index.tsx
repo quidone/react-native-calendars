@@ -14,7 +14,7 @@ export type {
   OnMonthChanged,
   OnPageMounted,
   OnPageUnmounted,
-  OnChangePageIndex,
+  OnPageIndexChanged,
   OnDayChanged,
   OnDayPress,
   // renders

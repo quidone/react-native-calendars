@@ -5,7 +5,7 @@ import {
   CalendarMethods,
   GetPageHeight,
   MonthPageIndex,
-  OnChangePageIndex,
+  OnPageIndexChanged,
   OnMonthChanged,
   OnMonthInitialized,
 } from '@calendars/common';
@@ -16,7 +16,7 @@ import MonthPager from './pager/MonthPager';
 import MonthPagesProvider from './pager/MonthPagesProvider';
 
 type MonthCalendarCoreProps = {
-  onPageIndexChanged?: OnChangePageIndex<MonthPageIndex>;
+  onPageIndexChanged?: OnPageIndexChanged<MonthPageIndex>;
   pageHeight?: number | GetPageHeight;
   /**
    * PageIndex or date in the format 'YYYY-MM-DD'. Default today or firstPage
@@ -53,7 +53,7 @@ const MonthCalendarCore = (
       pageStart={pageStart}
       pageEnd={pageEnd}
       initPageIndex={initPageIndex}
-      onChangePageIndex={onPageIndexChanged}>
+      onPageIndexChanged={onPageIndexChanged}>
       <CalendarContainer width={calendarWidth}>
         <Header
           visibleMonthHeader={visibleMonthHeader}

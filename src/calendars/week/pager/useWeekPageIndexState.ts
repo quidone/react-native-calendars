@@ -1,4 +1,4 @@
-import type {OnChangePageIndex, WeekPageIndex} from '@calendars/common';
+import type {OnPageIndexChanged, WeekPageIndex} from '@calendars/common';
 import {useDayState, useLocaledDayjs} from '@calendars/common';
 import {useCallback} from 'react';
 import {
@@ -9,7 +9,7 @@ import {
 
 const useWeekPageIndexState = (
   initPageIndexProp: WeekPageIndex | string | undefined,
-  onPageIndexChanged: OnChangePageIndex<WeekPageIndex> | undefined,
+  onPageIndexChanged: OnPageIndexChanged<WeekPageIndex> | undefined,
 ) => {
   const ldayjs = useLocaledDayjs();
   const [selectedDay] = useDayState();
@@ -41,7 +41,7 @@ const useWeekPageIndexState = (
     }),
   );
 
-  const onChangePage = useStableCallback(onPageIndexChanged);
+  const onPageChanged = useStableCallback(onPageIndexChanged);
   const changePageIndex = useCallback(
     (index: WeekPageIndex) => {
       const curIndex = pageIndexRef.current;
@@ -49,11 +49,11 @@ const useWeekPageIndexState = (
         curIndex.dayOfYear !== index.dayOfYear ||
         curIndex.year !== index.year
       ) {
-        onChangePage?.({value: index});
+        onPageChanged?.({value: index});
         setPageIndex(index);
       }
     },
-    [onChangePage, pageIndexRef, setPageIndex],
+    [onPageChanged, pageIndexRef, setPageIndex],
   );
 
   return [pageIndex, changePageIndex] as [

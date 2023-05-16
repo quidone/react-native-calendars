@@ -10,7 +10,7 @@ import usePageIndexState from './useMonthPageIndexState';
 import {SharedValue, useSharedValue} from 'react-native-reanimated';
 import {
   MonthPageIndex,
-  OnChangePageIndex,
+  OnPageIndexChanged,
   useLocaledDayjs,
 } from '@calendars/common';
 import {
@@ -39,7 +39,7 @@ const MonthPageIndexStateContext = createContext<
 type MonthPagesProviderProps = PropsWithChildren<{
   pageStart: MonthPageIndex | dayjs.Dayjs | string | undefined;
   pageEnd: MonthPageIndex | dayjs.Dayjs | string | undefined;
-  onChangePageIndex: OnChangePageIndex<MonthPageIndex> | undefined;
+  onPageIndexChanged: OnPageIndexChanged<MonthPageIndex> | undefined;
   initPageIndex: MonthPageIndex | string | undefined;
 }>;
 
@@ -47,13 +47,13 @@ const MonthPagesProvider = ({
   pageStart: pageStartProp,
   pageEnd: pageEndProp,
   initPageIndex,
-  onChangePageIndex,
+  onPageIndexChanged,
   children,
 }: MonthPagesProviderProps) => {
   const ldayjs = useLocaledDayjs();
   const [index, changeIndex] = usePageIndexState(
     initPageIndex,
-    onChangePageIndex,
+    onPageIndexChanged,
   );
 
   const pageStart = useMemo(

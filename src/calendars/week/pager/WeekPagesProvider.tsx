@@ -1,5 +1,5 @@
 import {
-  OnChangePageIndex,
+  OnPageIndexChanged,
   WeekPageIndex,
   useLocaledDayjs,
 } from '@calendars/common';
@@ -39,7 +39,7 @@ const WeekPageIndexStateContext = createContext<
 type WeekPagesProviderProps = PropsWithChildren<{
   pageStart: WeekPageIndex | dayjs.Dayjs | string | undefined;
   pageEnd: WeekPageIndex | dayjs.Dayjs | string | undefined;
-  onChangePageIndex: OnChangePageIndex<WeekPageIndex> | undefined;
+  onPageIndexChanged: OnPageIndexChanged<WeekPageIndex> | undefined;
   initPageIndex: WeekPageIndex | string | undefined;
 }>;
 
@@ -47,13 +47,13 @@ const WeekPagesProvider = ({
   pageStart: pageStartProp,
   pageEnd: pageEndProp,
   initPageIndex,
-  onChangePageIndex,
+  onPageIndexChanged,
   children,
 }: WeekPagesProviderProps) => {
   const ldayjs = useLocaledDayjs();
   const [index, changeIndex] = usePageIndexState(
     initPageIndex,
-    onChangePageIndex,
+    onPageIndexChanged,
   );
 
   const pageStart = useMemo(

@@ -29,7 +29,7 @@ import {
   CalendarMethods,
   GetPageHeight,
   MonthPageIndex,
-  OnChangePageIndex,
+  OnPageIndexChanged,
   OnMonthChanged,
   OnMonthInitialized,
   useDayState,
@@ -58,7 +58,7 @@ type WMCalendarCoreProps = {
   onTypeChanged?: OnTypeChanged;
   getMonthPagerOffsetY?: GetMonthPagerOffsetY;
 
-  onPageIndexChanged?: OnChangePageIndex<WeekPageIndex | MonthPageIndex>;
+  onPageIndexChanged?: OnPageIndexChanged<WeekPageIndex | MonthPageIndex>;
   pageHeight?:
     | GetPageHeight
     | Partial<Record<CalendarType, number | GetPageHeight>>;
@@ -152,14 +152,14 @@ const WMCalendarCore = (
     [ldayjs, monthPageEnd],
   );
   const onWeekPageIndexChanged = useStableCallback<
-    OnChangePageIndex<WeekPageIndex>
+    OnPageIndexChanged<WeekPageIndex>
   >((e) => {
     if (type === 'week') {
       onPageIndexChanged?.(e);
     }
   });
   const onMonthPageIndexChanged = useStableCallback<
-    OnChangePageIndex<MonthPageIndex>
+    OnPageIndexChanged<MonthPageIndex>
   >((e) => {
     if (type === 'month') {
       onPageIndexChanged?.(e);
@@ -188,12 +188,12 @@ const WMCalendarCore = (
     <WeekPagesProvider
       pageStart={weekPageStart}
       pageEnd={weekPageEnd}
-      onChangePageIndex={onWeekPageIndexChanged}
+      onPageIndexChanged={onWeekPageIndexChanged}
       initPageIndex={initWeekPageIndex}>
       <MonthPagesProvider
         pageStart={monthPageStart}
         pageEnd={monthPageEnd}
-        onChangePageIndex={onMonthPageIndexChanged}
+        onPageIndexChanged={onMonthPageIndexChanged}
         initPageIndex={initMonthPageIndex}>
         <CalendarContainer width={calendarWidth}>
           <Header
