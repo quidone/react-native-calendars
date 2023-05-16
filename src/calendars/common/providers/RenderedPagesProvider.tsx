@@ -13,18 +13,33 @@ import {
   useIsChanged,
   useIsFirstRender,
 } from '@rozhkov/react-useful-hooks';
+import type {FDay} from '@utils/day';
+import {fDay} from '@utils/day';
 
 export type PageType = 'week' | 'month';
 
-export type PageData = {
+export type PageDataBase<DayT extends FDay | dayjs.Dayjs> = {
   key: string;
   arrayIndex: number;
   type: PageType;
-  start: dayjs.Dayjs; // TODO из свойств нужно только передавать строки дан FDay
-  end: dayjs.Dayjs; // TODO из свойств нужно только передавать строки дан FDay
+  start: DayT;
+  end: DayT;
   pageHeight: number;
   rowCount: number;
 };
+
+export type PageData = PageDataBase<dayjs.Dayjs>;
+export type PageDataProp = PageDataBase<FDay>;
+
+const mapDataToProp = (data: PageData): PageDataProp => ({
+  key: data.key,
+  arrayIndex: data.arrayIndex,
+  type: data.type,
+  start: fDay(data.start),
+  end: fDay(data.end),
+  pageHeight: data.pageHeight,
+  rowCount: data.rowCount,
+});
 
 type RenderedPagesEventsContextValue = {
   onPageMounted: (data: PageData) => void;
@@ -38,9 +53,12 @@ const RenderedPageEventsContext =
 const RenderedPageDataContext =
   createContext<RenderedPagesDataContextValue | null>(null);
 
+export type OnPageMounted = (data: PageDataProp) => void;
+export type OnPageUnmounted = (data: PageDataProp) => void;
+
 type RenderedPagesProviderProps = PropsWithChildren<{
-  onPageMounted: ((data: PageData) => void) | undefined;
-  onPageUnmounted: ((data: PageData) => void) | undefined;
+  onPageMounted: OnPageMounted | undefined;
+  onPageUnmounted: OnPageUnmounted | undefined;
 }>;
 
 const RenderedPagesProvider = ({
@@ -51,7 +69,7 @@ const RenderedPagesProvider = ({
   const [pages, setPages] = useState<ReadonlyArray<PageData>>([]);
 
   const onPageMounted = useStableCallback((data: PageData) => {
-    onPageMountedProp?.(data);
+    onPageMountedProp?.(mapDataToProp(data));
     setPages((prev) => [...prev, data]);
   });
   const onPageChanged = useCallback((data: PageData) => {
@@ -71,7 +89,7 @@ const RenderedPagesProvider = ({
       if (index < 0) {
         throw new Error('Page not found');
       }
-      onPageUnmountedProp?.(prev[index]!);
+      onPageUnmountedProp?.(mapDataToProp(prev[index]!));
       const result = [...prev];
       result.splice(index, 1);
       return result;

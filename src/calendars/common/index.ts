@@ -20,7 +20,12 @@ export type {
   DayTextStyleFn,
 } from './providers/StylesProvider';
 
-export type {PageData} from './providers/RenderedPagesProvider';
+export type {
+  PageData,
+  PageDataProp,
+  OnPageMounted,
+  OnPageUnmounted,
+} from './providers/RenderedPagesProvider';
 export {
   useRenderedPageData,
   useRenderedPageRegisterEffect,
