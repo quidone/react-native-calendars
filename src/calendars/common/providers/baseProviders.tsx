@@ -11,7 +11,10 @@ import CustomRendersProvider, {
 } from './CustomRendersProvider';
 import LocaleProvider, {Locale} from './LocaleProvider';
 import MarkedDaysProvider, {MarkedDays} from './MarkedDaysProvider';
-import RenderedPagesProvider, {PageData} from './RenderedPagesProvider';
+import RenderedPagesProvider, {
+  OnPageMounted,
+  OnPageUnmounted,
+} from './RenderedPagesProvider';
 import StylesProvider, {CalendarStyles} from './StylesProvider';
 import ThemeProvider, {CalendarTheme} from './ThemeProvider';
 import TodayProvider from './TodayProvider';
@@ -29,8 +32,8 @@ export type BaseCalendarProps = {
   dayMax?: Day;
   markedDays?: MarkedDays;
 
-  onPageMounted?: (data: PageData) => void;
-  onPageUnmounted?: (data: PageData) => void;
+  onPageMounted?: OnPageMounted;
+  onPageUnmounted?: OnPageUnmounted;
 
   renderDay?: RenderDay;
   renderMonthTitleHeader?: RenderMonthTitleHeader;
