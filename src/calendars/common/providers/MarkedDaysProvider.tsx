@@ -20,7 +20,11 @@ export type DotData = {
   key?: string | number;
   selectedColor?: string;
 } & Record<string, any>;
-export type MarkedDayData = {dots?: DotData[]; selected?: boolean};
+export type MarkedDayData = {
+  dots?: DotData[];
+  selected?: boolean;
+  disabled?: boolean;
+};
 export type MarkedDay = [Day, MarkedDayData];
 export type MarkedDayRange = [Day, Day, MarkedDayData];
 export type MarkedDayItem = MarkedDay | MarkedDayRange;
