@@ -67,7 +67,7 @@ const DayProvider = ({
   const changeDay = useStableCallback((day: dayjs.Dayjs) => {
     const selDay = isDayPropSet ? selectedDayPropObj : selectedDayRef.current;
     if (!day.isSame(selDay, 'date')) {
-      if (isDayPropSet) {
+      if (!isDayPropSet) {
         setDayState(day);
       }
       onDayChangedProp?.({day: fDay(day)});
