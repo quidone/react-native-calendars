@@ -52,10 +52,8 @@ const DayProvider = ({
   children,
 }: DayProviderProps) => {
   const [selectedDay, setDayState, selectedDayRef] =
-    useStateRef<dayjs.Dayjs | null>(
-      selectedDayProp !== undefined
-        ? setNoon(dayjs.utc(selectedDayProp))
-        : null,
+    useStateRef<dayjs.Dayjs | null>(() =>
+      selectedDayProp != null ? setNoon(dayjs.utc(selectedDayProp)) : null,
     );
 
   const onDayChanged = useStableCallback(onDayChangedProp);
@@ -71,7 +69,7 @@ const DayProvider = ({
 
   // sync with selectedDayProps
   useEffect(() => {
-    if (selectedDayProp !== undefined) {
+    if (selectedDayProp != null) {
       const dayProp = setNoon(dayjs.utc(selectedDayProp));
       if (!dayProp.isSame(selectedDayRef.current, 'date')) {
         setDayState(dayProp);
@@ -94,7 +92,7 @@ const DayProvider = ({
       if (onDayPressProp !== undefined) {
         onDayPressProp({
           day: fDay(day),
-          selectedDay: selectedDay !== null ? fDay(selectedDay) : null,
+          selectedDay: selectedDay != null ? fDay(selectedDay) : null,
         });
       }
       changeDay(day);
