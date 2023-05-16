@@ -8,6 +8,7 @@ import React, {
 import type dayjs from 'dayjs';
 import {useLocaledDayjs} from './LocaleProvider';
 import {useInit, useStateRef} from '@rozhkov/react-useful-hooks';
+import {setNoon} from '@utils/day';
 
 type TodayContextValue = dayjs.Dayjs;
 
@@ -15,13 +16,12 @@ const TodayContext = createContext<TodayContextValue | null>(null);
 
 type TodayProviderProps = PropsWithChildren<{}>;
 
-// TODO setNoon;
 const TodayProvider = (props: TodayProviderProps) => {
   const {children} = props;
   const ldayjs = useLocaledDayjs();
 
   const [today, setToday, todayRef] = useStateRef<dayjs.Dayjs>(
-    useInit(() => ldayjs().utc(true)),
+    useInit(() => setNoon(ldayjs().utc(true))),
   );
 
   useEffect(() => {
@@ -29,9 +29,9 @@ const TodayProvider = (props: TodayProviderProps) => {
       const prevToday = todayRef.current;
       const newToday = ldayjs().utc(true);
       if (!newToday.isSame(prevToday, 'date')) {
-        setToday(newToday);
+        setToday(setNoon(newToday));
       }
-    }, 5000);
+    }, 1000);
     return () => {
       clearInterval(id);
     };
