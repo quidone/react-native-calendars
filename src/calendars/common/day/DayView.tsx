@@ -61,6 +61,7 @@ const DayView = ({
             style={[
               base.dayContainerStyle,
               isSecondary ? base.daySecondaryContainerStyle : undefined,
+              isDisabled ? base.dayDisabledContainerStyle : undefined,
               dayContainerStyle,
               dayContainerPropStyle,
             ]}>

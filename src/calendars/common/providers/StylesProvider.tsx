@@ -25,6 +25,7 @@ type CalendarBaseStaticStyles = {
   dayRowStyle: ViewStyle;
   dayContainerStyle: ViewStyle;
   daySecondaryContainerStyle: ViewStyle;
+  dayDisabledContainerStyle: ViewStyle;
   dayTitleStyle: TextStyle;
   dayDotsRowStyle: ViewStyle;
   dayDotStyle: ViewStyle;
@@ -97,6 +98,9 @@ const buildStaticStyles = ({
       backgroundColor: getThemePropValue(dayBgColor),
     },
     daySecondaryContainerStyle: {
+      opacity: 0.4,
+    },
+    dayDisabledContainerStyle: {
       opacity: 0.4,
     },
     dayTitleStyle: {
