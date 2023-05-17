@@ -51,6 +51,8 @@ const buildStaticStyles = ({
   dayColor,
   dayBgColor,
   dayDotSize,
+  dayDisabledOpacity,
+  daySecondaryOpacity,
 }: CalendarTheme) => {
   return StyleSheet.create<CalendarBaseStaticStyles>({
     monthHeaderRowStyle: {
@@ -98,8 +100,8 @@ const buildStaticStyles = ({
       // initialize values
       backgroundColor: getThemePropValue(dayBgColor),
     },
-    daySecondaryContainerStyle: {opacity: 0.4},
-    dayDisabledContainerStyle: {opacity: 0.4},
+    daySecondaryContainerStyle: {opacity: daySecondaryOpacity},
+    dayDisabledContainerStyle: {opacity: dayDisabledOpacity},
     dayTitleStyle: {
       fontSize: dayFontSize,
       // initialize values

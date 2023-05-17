@@ -39,6 +39,7 @@ export type CalendarTheme = {
   daySelectedBgColor: string | AnimConfig<string>;
   daySelectedColor: string | AnimConfig<string>;
   dayDisabledOpacity: number;
+  daySecondaryOpacity: number;
   dayDotSize: number;
 };
 
@@ -73,7 +74,8 @@ const defaultTheme: CalendarTheme = {
     type: 'timing',
     option: {duration: 50},
   },
-  dayDisabledOpacity: 0.5,
+  dayDisabledOpacity: 0.4,
+  daySecondaryOpacity: 0.4,
   dayDotSize: 5,
 } as const;
 
