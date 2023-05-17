@@ -81,7 +81,7 @@ export type RenderWeekPager = (
 type PagesControllerProps = {
   type: CalendarType;
   onChangedType: (type: CalendarType) => void;
-  switchingAnimConfig: AnimConfig | undefined;
+  switchAnimConfig: AnimConfig | undefined;
   enableSwitchGesture: boolean | undefined;
   getMonthPagerOffsetY: GetMonthPagerOffsetY | undefined;
   renderMonthPager: RenderMonthPager;
@@ -93,7 +93,7 @@ const PagersController = (
     type,
     onChangedType,
     getMonthPagerOffsetY,
-    switchingAnimConfig = defaultProgressAnimConfig,
+    switchAnimConfig = defaultProgressAnimConfig,
     enableSwitchGesture = true,
     renderWeekPager,
     renderMonthPager,
@@ -115,9 +115,9 @@ const PagersController = (
   const animateProgress = useCallback(
     (value: 0 | 1, callback?: AnimationCallback) => {
       'worklet';
-      typeProgressSv.value = withAnim(value, switchingAnimConfig, callback);
+      typeProgressSv.value = withAnim(value, switchAnimConfig, callback);
     },
-    [switchingAnimConfig, typeProgressSv],
+    [switchAnimConfig, typeProgressSv],
   );
 
   const setTypeProgressEnd = useCallback(
@@ -231,7 +231,7 @@ const PagersController = (
     animateProgress,
     isMonthType,
     isWeekType,
-    switchingAnimConfig,
+    switchAnimConfig,
     typeProgressSv,
   ]);
 
