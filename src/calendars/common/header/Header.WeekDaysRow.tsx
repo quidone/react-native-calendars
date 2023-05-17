@@ -26,7 +26,7 @@ const HeaderWeekDaysRow = () => {
   const {base, prop} = useStyles();
 
   return (
-    <View style={[base.weekDaysContainerStyle, prop.weekDaysContainerStyle]}>
+    <View style={[base.weekDayRowStyle, prop.weekDayRowStyle]}>
       {sortedWeekDays.map((weekDay) => (
         <WeekDay key={weekDay} title={weekDay} />
       ))}

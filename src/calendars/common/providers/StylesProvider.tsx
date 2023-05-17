@@ -19,7 +19,7 @@ import {createRequiredContextValueHook} from '@utils/react-hooks';
 type CalendarBaseStaticStyles = {
   monthHeaderRowStyle: ViewStyle;
   monthHeaderTitleStyle: TextStyle;
-  weekDaysContainerStyle: ViewStyle;
+  weekDayRowStyle: ViewStyle;
   weekDayContainerStyle: ViewStyle;
   weekDayTitleStyle: TextStyle;
   pageContainerStyle: ViewStyle;
@@ -63,7 +63,7 @@ const buildStaticStyles = ({
       color: monthTitleColor,
       fontSize: monthTitleFontSize,
     },
-    weekDaysContainerStyle: {
+    weekDayRowStyle: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -209,7 +209,7 @@ export type CalendarStyles = {
   containerStyle: StyleProp<ViewStyle> | undefined;
   monthHeaderRowStyle: StyleProp<ViewStyle> | undefined;
   monthHeaderTitleStyle: StyleProp<TextStyle> | undefined;
-  weekDaysContainerStyle: StyleProp<ViewStyle> | undefined;
+  weekDayRowStyle: StyleProp<ViewStyle> | undefined;
   weekDayContainerStyle: StyleProp<ViewStyle> | undefined;
   weekDayTitleStyle: StyleProp<TextStyle> | undefined;
   pageContainerStyle: StyleProp<ViewStyle> | undefined;
