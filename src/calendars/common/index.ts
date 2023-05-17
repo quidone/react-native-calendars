@@ -54,7 +54,7 @@ export type {
 } from './providers/MarkedDaysProvider';
 export type {
   RenderDay,
-  RenderMonthTitleHeader,
+  RenderMonthHeaderTitle,
 } from './providers/CustomRendersProvider';
 export {useDots} from './dot/DotsContext';
 

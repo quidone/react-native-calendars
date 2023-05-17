@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import CustomRendersProvider, {
   RenderDay,
-  RenderMonthTitleHeader,
+  RenderMonthHeaderTitle,
 } from './CustomRendersProvider';
 import LocaleProvider, {Locale} from './LocaleProvider';
 import MarkedDaysProvider, {MarkedDays} from './MarkedDaysProvider';
@@ -36,7 +36,7 @@ export type BaseCalendarProps = {
   onPageUnmounted?: OnPageUnmounted;
 
   renderDay?: RenderDay;
-  renderMonthTitleHeader?: RenderMonthTitleHeader;
+  renderMonthHeaderTitle?: RenderMonthHeaderTitle;
 } & Partial<CalendarStyles>;
 
 const baseProviders = <
@@ -62,7 +62,7 @@ const baseProviders = <
       onPageUnmounted,
       onPageMounted,
 
-      renderMonthTitleHeader,
+      renderMonthHeaderTitle,
       renderDay,
 
       containerStyle,
@@ -97,7 +97,7 @@ const baseProviders = <
                 <MarkedDaysProvider markedDays={markedDays}>
                   <CustomRendersProvider
                     renderDay={renderDay}
-                    renderMonthTitleHeader={renderMonthTitleHeader}>
+                    renderMonthHeaderTitle={renderMonthHeaderTitle}>
                     <StylesProvider
                       containerStyle={containerStyle}
                       monthHeaderRowStyle={monthHeaderRowStyle}

@@ -19,7 +19,7 @@ export type {
   OnDayPress,
   // renders
   RenderDay,
-  RenderMonthTitleHeader,
+  RenderMonthHeaderTitle,
   // marked days
   MarkedDays,
   MarkedDaysSelector,
