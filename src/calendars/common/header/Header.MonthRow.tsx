@@ -12,7 +12,7 @@ const HeaderMonthRow = ({year, month}: HeaderMonthRowProps) => {
   const {base, prop} = useStyles();
 
   return (
-    <View style={[base.monthHeaderRowStyle, prop.monthHeaderRowStyle]}>
+    <View style={[base.monthRowStyle, prop.monthRowStyle]}>
       <Text style={[base.monthHeaderTitleStyle, prop.monthHeaderTitleStyle]}>
         {title}
       </Text>

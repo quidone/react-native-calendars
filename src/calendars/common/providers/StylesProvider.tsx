@@ -17,7 +17,7 @@ import {
 import {createRequiredContextValueHook} from '@utils/react-hooks';
 
 type CalendarBaseStaticStyles = {
-  monthHeaderRowStyle: ViewStyle;
+  monthRowStyle: ViewStyle;
   monthHeaderTitleStyle: TextStyle;
   weekDayRowStyle: ViewStyle;
   weekDayContainerStyle: ViewStyle;
@@ -55,7 +55,7 @@ const buildStaticStyles = ({
   daySecondaryOpacity,
 }: CalendarTheme) => {
   return StyleSheet.create<CalendarBaseStaticStyles>({
-    monthHeaderRowStyle: {
+    monthRowStyle: {
       justifyContent: 'center',
       alignItems: 'center',
       paddingVertical: 12,
@@ -209,7 +209,7 @@ export type DayTextStyleFn = (info: {
 }) => StyleProp<TextStyle> | undefined;
 export type CalendarStyles = {
   containerStyle: StyleProp<ViewStyle> | undefined;
-  monthHeaderRowStyle: StyleProp<ViewStyle> | undefined;
+  monthRowStyle: StyleProp<ViewStyle> | undefined;
   monthHeaderTitleStyle: StyleProp<TextStyle> | undefined;
   weekDayRowStyle: StyleProp<ViewStyle> | undefined;
   weekDayContainerStyle: StyleProp<ViewStyle> | undefined;
