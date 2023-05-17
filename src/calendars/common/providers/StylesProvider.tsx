@@ -15,6 +15,7 @@ import {
   useTheme,
 } from './ThemeProvider';
 import {createRequiredContextValueHook} from '@utils/react-hooks';
+import type {FDay} from '@utils/day';
 
 type CalendarBaseStaticStyles = {
   monthRowStyle: ViewStyle;
@@ -196,12 +197,14 @@ const useCalendarBaseAnimatedStyles = ({
 type CalendarBaseStyles = CalendarBaseStaticStyles & CalendarBaseAnimatedStyles;
 
 export type DayContainerStyleFn = (info: {
+  day: FDay;
   isSelected: boolean;
   isToday: boolean;
   isDisabled: boolean;
   isSecondary: boolean;
 }) => StyleProp<ViewStyle> | undefined;
 export type DayTextStyleFn = (info: {
+  day: FDay;
   isSelected: boolean;
   isToday: boolean;
   isDisabled: boolean;

@@ -1,4 +1,4 @@
-import React, {isValidElement} from 'react';
+import React, {isValidElement, useMemo} from 'react';
 import type dayjs from 'dayjs';
 import {useCustomRenders} from '../providers/CustomRendersProvider';
 import DayView from './DayView';
@@ -13,6 +13,7 @@ import {
 import {useStableCallback} from '@rozhkov/react-useful-hooks';
 import DotsContext from '../dot/DotsContext';
 import {EMPTY_ARRAY} from 'default-values';
+import {fDay} from '@utils/day';
 
 type DayProps = {
   day: dayjs.Dayjs;
@@ -25,6 +26,7 @@ const Day = ({day, isSecondary = false}: DayProps) => {
   const isSelected = useIsSelectedDay(day) || Boolean(markedData?.selected);
   const isDisabled = !useDayInRange(day) || Boolean(markedData?.disabled);
   const isToday = useIsDayToday(day);
+  const fday = useMemo(() => fDay(day), [day]);
   const onDayPress = useOnDayPress();
   const onPress = useStableCallback(() => onDayPress({day, isDisabled}));
 
@@ -43,6 +45,7 @@ const Day = ({day, isSecondary = false}: DayProps) => {
         customDay
       ) : (
         <DayViewEmpty
+          day={fday}
           isSelected={isSelected}
           isDisabled={isDisabled}
           isToday={isToday}
@@ -52,7 +55,8 @@ const Day = ({day, isSecondary = false}: DayProps) => {
     }
     return (
       <DayView
-        day={day.date()}
+        date={day.date()}
+        day={fday}
         isSelected={isSelected}
         isDisabled={isDisabled}
         isToday={isToday}

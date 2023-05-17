@@ -4,17 +4,20 @@ import Animated from 'react-native-reanimated';
 import {useStyles} from '../providers/StylesProvider';
 import LazyAnimatedStylesController from './LazyAnimatedStylesController';
 import DotsRow from '../dot/DotRow';
+import type {FDay} from '@utils/day';
 
 export type DayViewProps = {
+  date: number;
+  day: FDay;
   isSelected?: boolean;
   isDisabled?: boolean;
   isToday?: boolean;
   isSecondary?: boolean;
-  day: number | string;
   onPress?: () => void;
 };
 
 const DayView = ({
+  date,
   day,
   isSelected = false,
   isDisabled = false,
@@ -27,6 +30,7 @@ const DayView = ({
   const dayContainerPropStyle =
     typeof prop.dayContainerStyle === 'function'
       ? prop.dayContainerStyle({
+          day,
           isToday,
           isDisabled,
           isSelected,
@@ -36,6 +40,7 @@ const DayView = ({
   const dayTextPropStyle =
     typeof prop.dayTextStyle === 'function'
       ? prop.dayTextStyle({
+          day,
           isToday,
           isDisabled,
           isSelected,
@@ -58,7 +63,7 @@ const DayView = ({
               ]}>
               <Animated.Text
                 style={[base.dayTitleStyle, textColorStyle, dayTextPropStyle]}>
-                {day}
+                {date}
               </Animated.Text>
               <DotsRow isDaySelected={isSelected} />
             </Animated.View>

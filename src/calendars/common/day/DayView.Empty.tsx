@@ -1,8 +1,10 @@
 import React, {memo} from 'react';
 import {View} from 'react-native';
 import {useStyles} from '../providers/StylesProvider';
+import type {FDay} from '@utils/day';
 
 type DayViewEmptyProps = {
+  day: FDay;
   isToday: boolean;
   isDisabled: boolean;
   isSelected: boolean;
@@ -10,6 +12,7 @@ type DayViewEmptyProps = {
 };
 
 const DayViewEmpty = ({
+  day,
   isSecondary,
   isSelected,
   isToday,
@@ -20,6 +23,7 @@ const DayViewEmpty = ({
   const style =
     typeof prop.dayContainerStyle === 'function'
       ? prop.dayContainerStyle({
+          day,
           isToday,
           isDisabled,
           isSelected,
