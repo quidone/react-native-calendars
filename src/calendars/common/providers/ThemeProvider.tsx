@@ -20,7 +20,7 @@ export type AnimConfig<ValueT> =
   | SpringAnimConfig<ValueT>;
 
 export type CalendarTheme = {
-  calendarHorizontalPaddings: number;
+  calendarPaddingHorizontal: number;
 
   monthTitleColor: string;
   monthTitleFontSize: number;
@@ -48,7 +48,7 @@ const PRIMARY_COLOR = '#2C98F0';
 const PRIMARY_FONT_COLOR = '#000000';
 const SECONDARY_FONT_COLOR = '#707070';
 const defaultTheme: CalendarTheme = {
-  calendarHorizontalPaddings: 16,
+  calendarPaddingHorizontal: 16,
 
   monthTitleColor: PRIMARY_FONT_COLOR,
   monthTitleFontSize: 17,

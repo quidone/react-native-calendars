@@ -39,7 +39,7 @@ const getThemePropValue = <ValueT extends string | number>(
 };
 
 const buildStaticStyles = ({
-  calendarHorizontalPaddings,
+  calendarPaddingHorizontal,
   monthTitleFontSize,
   monthTitleColor,
   weekDayTitleColor,
@@ -59,7 +59,7 @@ const buildStaticStyles = ({
       justifyContent: 'center',
       alignItems: 'center',
       paddingVertical: 12,
-      paddingHorizontal: calendarHorizontalPaddings,
+      paddingHorizontal: calendarPaddingHorizontal,
     },
     monthHeaderTitleStyle: {
       color: monthTitleColor,
@@ -69,7 +69,7 @@ const buildStaticStyles = ({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      paddingHorizontal: calendarHorizontalPaddings,
+      paddingHorizontal: calendarPaddingHorizontal,
     },
     weekDayContainerStyle: {
       justifyContent: 'center',
@@ -89,7 +89,7 @@ const buildStaticStyles = ({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      paddingHorizontal: calendarHorizontalPaddings,
+      paddingHorizontal: calendarPaddingHorizontal,
     },
     dayContainerStyle: {
       justifyContent: 'center',
