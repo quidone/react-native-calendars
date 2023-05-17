@@ -52,27 +52,23 @@ import {
 } from '@calendars/month';
 
 type WMCalendarCoreProps = {
-  type?: CalendarType;
-  enableSwitchingByGesture?: boolean; // TODO rename
-  switchingAnimConfig?: AnimConfig; // TODO rename
-  onTypeChanged?: OnTypeChanged;
-  getMonthPagerOffsetY?: GetMonthPagerOffsetY;
-
   onPageIndexChanged?: OnPageIndexChanged<WeekPageIndex | MonthPageIndex>;
   pageHeight?:
     | GetPageHeight
     | Partial<Record<CalendarType, number | GetPageHeight>>;
-  /**
-   * PageIndex or date in the format 'YYYY-MM-DD'. Default today or firstPage
-   */
   initPageIndex?: Day;
   pageStart?: MonthPageIndex | Day;
   pageEnd?: MonthPageIndex | Day;
+  type?: CalendarType;
+  enableSwitchingByGesture?: boolean; // TODO rename
+  switchingAnimConfig?: AnimConfig; // TODO rename
+  onTypeChanged?: OnTypeChanged;
+  getMonthPagerOffsetY?: GetMonthPagerOffsetY; // TODO rename remove prefix get
+  // common props
   visibleMonthHeader?: boolean;
   visibleWeekDaysHeader?: boolean;
   onMonthInitialized?: OnMonthInitialized;
   onMonthChanged?: OnMonthChanged;
-
   calendarWidth?: number;
 };
 

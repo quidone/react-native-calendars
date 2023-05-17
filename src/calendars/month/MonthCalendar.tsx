@@ -18,17 +18,14 @@ import MonthPagesProvider from './pager/MonthPagesProvider';
 type MonthCalendarCoreProps = {
   onPageIndexChanged?: OnPageIndexChanged<MonthPageIndex>;
   pageHeight?: number | GetPageHeight;
-  /**
-   * PageIndex or date in the format 'YYYY-MM-DD'. Default today or firstPage
-   */
-  initPageIndex?: MonthPageIndex | string;
+  initPageIndex?: MonthPageIndex | Day;
   pageStart?: MonthPageIndex | Day;
   pageEnd?: MonthPageIndex | Day;
+  // common props
   visibleMonthHeader?: boolean;
   visibleWeekDaysHeader?: boolean;
   onMonthInitialized?: OnMonthInitialized;
   onMonthChanged?: OnMonthChanged;
-
   calendarWidth?: number;
 };
 

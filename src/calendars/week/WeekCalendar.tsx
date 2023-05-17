@@ -21,6 +21,7 @@ type WeekCalendarCoreProps = {
   initPageIndex?: WeekPageIndex | Day;
   pageStart?: WeekPageIndex | Day;
   pageEnd?: WeekPageIndex | Day;
+  // common props
   visibleMonthHeader?: boolean;
   visibleWeekDaysHeader?: boolean;
   onMonthInitialized?: OnMonthInitialized;
