@@ -1,5 +1,4 @@
 import React, {createContext, memo, PropsWithChildren} from 'react';
-import type {PageIndex} from '../types';
 import {useMemoObject} from '@rozhkov/react-useful-hooks';
 import {createRequiredContextValueHook} from '@utils/react-hooks';
 import type {FDay} from '@utils/day';
@@ -15,7 +14,8 @@ export type RenderDay = (data: {
 
 export type RenderMonthHeaderTitle = (data: {
   title: string;
-  pageIndex: PageIndex;
+  year: number;
+  month: number;
 }) => React.ReactNode;
 
 type CustomRendersVal = {
