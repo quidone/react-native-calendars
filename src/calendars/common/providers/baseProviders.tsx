@@ -67,7 +67,7 @@ const baseProviders = <
 
       containerStyle,
       monthRowStyle,
-      monthHeaderTitleStyle,
+      monthTitleStyle,
       weekDayTitleStyle,
       weekDayRowStyle,
       weekDayContainerStyle,
@@ -101,7 +101,7 @@ const baseProviders = <
                     <StylesProvider
                       containerStyle={containerStyle}
                       monthRowStyle={monthRowStyle}
-                      monthHeaderTitleStyle={monthHeaderTitleStyle}
+                      monthTitleStyle={monthTitleStyle}
                       weekDayRowStyle={weekDayRowStyle}
                       weekDayContainerStyle={weekDayContainerStyle}
                       weekDayTitleStyle={weekDayTitleStyle}
