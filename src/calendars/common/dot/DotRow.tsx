@@ -21,7 +21,7 @@ type DotRowProps = {
   isDaySelected: boolean;
 };
 
-const DotsRow = ({isDaySelected}: DotRowProps) => {
+const DotRow = ({isDaySelected}: DotRowProps) => {
   const {base, prop} = useStyles();
   const dots = useDots();
 
@@ -29,7 +29,7 @@ const DotsRow = ({isDaySelected}: DotRowProps) => {
     return null;
   }
   return (
-    <View style={[base.dayDotsRowStyle, prop.dayDotsRowStyle]}>
+    <View style={[base.dayDotRowStyle, prop.dayDotRowStyle]}>
       {dots.map(({key, ...rest}, index) => (
         <Dot key={key ?? index} isDaySelected={isDaySelected} {...rest} />
       ))}
@@ -37,4 +37,4 @@ const DotsRow = ({isDaySelected}: DotRowProps) => {
   );
 };
 
-export default memo(DotsRow);
+export default memo(DotRow);

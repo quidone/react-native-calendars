@@ -75,7 +75,7 @@ const baseProviders = <
       dayRowStyle,
       dayContainerStyle,
       dayTextStyle,
-      dayDotsRowStyle,
+      dayDotRowStyle,
       dayDotStyle,
       ...restProps
     }: PropsT & BaseCalendarProps,
@@ -109,7 +109,7 @@ const baseProviders = <
                       dayRowStyle={dayRowStyle}
                       dayContainerStyle={dayContainerStyle}
                       dayTextStyle={dayTextStyle}
-                      dayDotsRowStyle={dayDotsRowStyle}
+                      dayDotRowStyle={dayDotRowStyle}
                       dayDotStyle={dayDotStyle}>
                       <WrappedComponent
                         {...(restProps as any)}

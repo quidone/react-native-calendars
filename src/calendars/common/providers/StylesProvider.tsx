@@ -28,7 +28,7 @@ type CalendarBaseStaticStyles = {
   daySecondaryContainerStyle: ViewStyle;
   dayDisabledContainerStyle: ViewStyle;
   dayTitleStyle: TextStyle;
-  dayDotsRowStyle: ViewStyle;
+  dayDotRowStyle: ViewStyle;
   dayDotStyle: ViewStyle;
 };
 
@@ -107,7 +107,7 @@ const buildStaticStyles = ({
       // initialize values
       color: getThemePropValue(dayColor),
     },
-    dayDotsRowStyle: {
+    dayDotRowStyle: {
       flexDirection: 'row',
       alignItems: 'center',
       position: 'absolute',
@@ -218,7 +218,7 @@ export type CalendarStyles = {
   dayRowStyle: StyleProp<ViewStyle> | undefined;
   dayContainerStyle: StyleProp<ViewStyle> | DayContainerStyleFn | undefined;
   dayTextStyle: StyleProp<TextStyle> | DayTextStyleFn | undefined;
-  dayDotsRowStyle: StyleProp<ViewStyle> | undefined;
+  dayDotRowStyle: StyleProp<ViewStyle> | undefined;
   dayDotStyle: StyleProp<ViewStyle> | undefined;
 };
 

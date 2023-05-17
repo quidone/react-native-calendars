@@ -3,7 +3,7 @@ import {TouchableWithoutFeedback} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {useStyles} from '../providers/StylesProvider';
 import LazyAnimatedStylesController from './LazyAnimatedStylesController';
-import DotsRow from '../dot/DotsRow';
+import DotsRow from '../dot/DotRow';
 
 export type DayViewProps = {
   isSelected?: boolean;
