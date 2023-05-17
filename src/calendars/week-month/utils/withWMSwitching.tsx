@@ -92,10 +92,8 @@ type WrappedScrollViewProps<
   ScrollViewPropsT = RNScrollViewProps & NativeViewGestureHandlerProps,
 > = {calendarRef: RefObject<CalendarMethods>} & ScrollViewPropsT;
 
-const createOuterSwitchContainer = <PropsT,>(
-  WrappedScrollView: ComponentType<PropsT>,
-) => {
-  const WMOuterSwitchContainer = (
+const withWMSwitching = <PropsT,>(WrappedScrollView: ComponentType<PropsT>) => {
+  const Wrapper = (
     {
       calendarRef,
       scrollEnabled = true,
@@ -184,9 +182,9 @@ const createOuterSwitchContainer = <PropsT,>(
     );
   };
 
-  return forwardRef(WMOuterSwitchContainer) as ComponentType<
-    WrappedScrollViewProps<PropsT>
-  >;
+  Wrapper.displayName = `withWMSwitching(${WrappedScrollView.displayName})`;
+
+  return forwardRef(Wrapper) as ComponentType<WrappedScrollViewProps<PropsT>>;
 };
 
-export default createOuterSwitchContainer;
+export default withWMSwitching;

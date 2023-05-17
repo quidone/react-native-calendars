@@ -1,5 +1,5 @@
 import {ForwardedRef, RefObject, useEffect, useImperativeHandle} from 'react';
-import type {ConnectionPayload} from '../utils/createOuterSwitchContainer';
+import type {ConnectionPayload} from '../utils/withWMSwitching';
 import type {DerivedValue, SharedValue} from 'react-native-reanimated';
 import {
   useArgByRef,
