@@ -82,7 +82,7 @@ type PagesControllerProps = {
   type: CalendarType;
   onChangedType: (type: CalendarType) => void;
   switchingAnimConfig: AnimConfig | undefined;
-  enableSwitchingByGesture: boolean | undefined;
+  enableSwitchGesture: boolean | undefined;
   getMonthPagerOffsetY: GetMonthPagerOffsetY | undefined;
   renderMonthPager: RenderMonthPager;
   renderWeekPager: RenderWeekPager;
@@ -94,7 +94,7 @@ const PagersController = (
     onChangedType,
     getMonthPagerOffsetY,
     switchingAnimConfig = defaultProgressAnimConfig,
-    enableSwitchingByGesture = true,
+    enableSwitchGesture = true,
     renderWeekPager,
     renderMonthPager,
   }: PagesControllerProps,
@@ -183,7 +183,7 @@ const PagersController = (
   const gesture = useMemo(
     () =>
       Gesture.Pan()
-        .enabled(enableSwitchingByGesture)
+        .enabled(enableSwitchGesture)
         .failOffsetX([-5, 5])
         .activeOffsetY([-5, 5])
         .onChange(({translationY}) => {
@@ -211,7 +211,7 @@ const PagersController = (
           }
         }),
     [
-      enableSwitchingByGesture,
+      enableSwitchGesture,
       weekPagerHeightSv,
       monthPagerHeightSv,
       isWeekType,

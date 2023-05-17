@@ -60,7 +60,7 @@ type WMCalendarCoreProps = {
   pageStart?: MonthPageIndex | Day;
   pageEnd?: MonthPageIndex | Day;
   type?: CalendarType;
-  enableSwitchingByGesture?: boolean; // TODO rename
+  enableSwitchGesture?: boolean; // TODO rename
   switchingAnimConfig?: AnimConfig; // TODO rename
   onTypeChanged?: OnTypeChanged;
   monthPagerOffsetY?: GetMonthPagerOffsetY;
@@ -76,7 +76,7 @@ const WMCalendarCore = (
   {
     type: typeProp,
     onTypeChanged,
-    enableSwitchingByGesture,
+    enableSwitchGesture,
     switchingAnimConfig,
     initPageIndex,
     pageEnd,
@@ -204,7 +204,7 @@ const WMCalendarCore = (
             type={type}
             onChangedType={changeType}
             switchingAnimConfig={switchingAnimConfig}
-            enableSwitchingByGesture={enableSwitchingByGesture}
+            enableSwitchGesture={enableSwitchGesture}
             getMonthPagerOffsetY={monthPagerOffsetY}
             renderWeekPager={renderWeekPager}
             renderMonthPager={renderMonthPager}
