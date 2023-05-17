@@ -1,15 +1,15 @@
 import React, {createContext, memo, PropsWithChildren} from 'react';
-import type dayjs from 'dayjs';
 import type {PageIndex} from '../types';
 import {useMemoObject} from '@rozhkov/react-useful-hooks';
 import {createRequiredContextValueHook} from '@utils/react-hooks';
+import type {FDay} from '@utils/day';
 
 export type RenderDay = (data: {
   isSecondary: boolean;
   isSelected: boolean;
   isDisabled: boolean;
   isToday: boolean;
-  day: dayjs.Dayjs;
+  day: FDay;
   onPress: () => void;
 }) => React.ReactNode;
 

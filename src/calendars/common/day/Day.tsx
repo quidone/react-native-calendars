@@ -33,7 +33,7 @@ const Day = ({day, isSecondary = false}: DayProps) => {
   const renderContent = () => {
     if (renderDay != null) {
       const customDay = renderDay({
-        day,
+        day: fday,
         onPress,
         isSecondary,
         isDisabled,
