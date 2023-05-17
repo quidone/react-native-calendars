@@ -5,10 +5,10 @@ import type {CalendarType} from '../types';
 export type OnTypeChanged = (data: {type: CalendarType}) => void;
 
 const useCalendarTypeState = (
-  typeProp: CalendarType | undefined,
+  typeProp: CalendarType,
   onChangedProp: OnTypeChanged | undefined,
 ) => {
-  const [type, setType] = useState(typeProp ?? 'week');
+  const [type, setType] = useState(typeProp);
 
   const change = useStableCallback((tp: CalendarType) => {
     onChangedProp?.({type: tp});
