@@ -1,6 +1,6 @@
 {
   "name": "@quidone/react-native-calendars",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React Native Calendars",
   "main": "dist/commonjs/index",
   "module": "dist/module/index",
