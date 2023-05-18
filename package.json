@@ -36,8 +36,8 @@
     "prepack": "yarn build:check-all && cp -r ./src ./copied-src && yarn build:resolve && yarn lint:fix && bob build",
     "postpublish": "rm -r ./src && cp -r ./copied-src ./src && rm -r ./copied-src",
     "release": "release-it",
-    "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn install"
+    "example": "cd example && yarn install",
+    "bootstrap": "yarn install && yarn example"
   },
   "keywords": [
     "react-native",
