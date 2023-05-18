@@ -1,7 +1,7 @@
 {
   "name": "@quidone/react-native-calendars",
   "version": "0.0.2",
-  "description": "test",
+  "description": "React Native Calendars",
   "main": "dist/commonjs/index",
   "module": "dist/module/index",
   "types": "dist/typescript/index.d.ts",
@@ -41,8 +41,15 @@
   },
   "keywords": [
     "react-native",
+    "calendar",
+    "month",
+    "week",
+    "component",
+    "react",
     "ios",
-    "android"
+    "android",
+    "expo",
+    "web"
   ],
   "repository": "https://github.com/quidone/react-native-calendars",
   "author": "Sergey Rozhkov <rozhkovse1@gmail.com> (https://github.com/quidone/react-native-calendars)",
