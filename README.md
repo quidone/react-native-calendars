@@ -5,16 +5,35 @@
 [DAYJS-GITHUB]: https://github.com/iamkun/dayjs
 [DAYJS-LOCALE]: https://day.js.org/docs/en/i18n/instance-locale
 
-# 📅 @quidone/react-native-calendars 🗓️
+# 📅 React Native Calendars 🗓️
 
 A declarative cross-platform React Native calendar component for iOS, Android and Web.
 
-TODO(insert gifs)
+<table>
+  <tr>
+    <td align="center">
+      <img src="./docs/gifs/week-calendar.gif" width="500"/>
+      <br />
+      WeekCalendar
+    </td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center">
+      <img src="./docs/gifs/month-calendar.gif" height="204"/>
+      <br />
+      MonthCalendar
+    </td>
+    <td align="center">
+      <img src="./docs/gifs/week-month-calendar.gif" height="204"/>
+      <br />
+      WMCalendar
+    </td>
+  </tr>
+</table>
 
-## ⚠️ Development Status ⚠️
 
-**Please note:** This repository is currently under active development.
-Updates can break backward compatibility. Please stay tuned.
 
 ## Installation
 ```shell
