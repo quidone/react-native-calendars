@@ -74,7 +74,7 @@ type WMCalendarCoreProps = {
 
 const WMCalendarCore = (
   {
-    type: typeProp = 'week',
+    type: typeProp,
     onTypeChanged,
     enableSwitchGesture,
     switchAnimConfig,
